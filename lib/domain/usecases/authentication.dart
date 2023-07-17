@@ -17,7 +17,5 @@ class AuthenticationParams {
   });
 
 
-  Map tiJson() => {'email': email, 'password': password };
-
   
 }
