@@ -1,0 +1,13 @@
+import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/entities/account_entity.dart';
+
+class RemoteAccountModel {
+  
+  final String accessToken;
+
+  RemoteAccountModel(this.accessToken);
+
+  factory RemoteAccountModel.fromJson(Map json) =>
+      RemoteAccountModel(json['accessToken']);
+
+  AccountEntity toEntity() => AccountEntity(accessToken);
+}
