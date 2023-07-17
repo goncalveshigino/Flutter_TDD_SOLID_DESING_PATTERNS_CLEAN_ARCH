@@ -16,5 +16,8 @@ class AuthenticationParams {
     @required this.password,
   });
 
+
+  Map tiJson() => {'email': email, 'password': password };
+
   
 }
