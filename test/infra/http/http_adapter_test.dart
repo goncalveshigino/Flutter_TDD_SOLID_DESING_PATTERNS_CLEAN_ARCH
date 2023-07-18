@@ -43,7 +43,7 @@ void main() {
     url = faker.internet.httpUrl();
   });
   group('post', () {
-    
+
     PostExpectation mockRequest() => when(
         client.post(any, body: anyNamed('body'), headers: anyNamed('headers')));
 
@@ -85,6 +85,14 @@ void main() {
 
     test('Should return null if post returns 200 with no data', () async {
       mockResponse(200, body: '');
+      final response = await sut.request(url: url, method: 'post');
+
+      expect(response, null);
+    });
+
+
+    test('Should return null if post returns 204', () async {
+      mockResponse(204, body: '');
       final response = await sut.request(url: url, method: 'post');
 
       expect(response, null);
