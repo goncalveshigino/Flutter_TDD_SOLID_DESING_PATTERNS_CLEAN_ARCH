@@ -24,12 +24,19 @@ class HttpAdapter {
 class ClientSpay extends Mock implements Client {}
 
 void main() {
+
+  HttpAdapter sut;
+  ClientSpay client;
+  String url;
+
+  setUp(() {
+     client = ClientSpay();
+     sut = HttpAdapter(client);
+     url = faker.internet.httpUrl();
+  });
   group('post', () {});
 
   test('Should calls post with correct values', () async {
-    final client = ClientSpay();
-    final sut = HttpAdapter(client);
-    final url = faker.internet.httpUrl();
 
     await sut.request(url: url, method: 'post');
 
