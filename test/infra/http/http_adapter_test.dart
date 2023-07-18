@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:faker/faker.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_tdd_clean_arch_solid_desin_patterns/infra/http/http.dart';
 import 'package:http/http.dart';
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
+
+import 'package:flutter_tdd_clean_arch_solid_desin_patterns/infra/http/http.dart';
 
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/data/http/http.dart';
 
@@ -85,6 +85,31 @@ void main() {
       final response = await sut.request(url: url, method: 'post');
 
       expect(response, null);
+    });
+
+    test('Should return BadRequestError if post return 400', () async {
+      mockResponse(400);
+
+      final future =  sut.request(url: url, method: 'post');
+
+      expect(future, throwsA(HttpError.badRequest));
+    });
+
+    test('Should return BadRequestError if post return 400', () async {
+      mockResponse(400, body: '');
+
+      final future =  sut.request(url: url, method: 'post');
+
+      expect(future, throwsA(HttpError.badRequest));
+    });
+
+
+    test('Should return BadRequestError if post return 400', () async {
+      mockResponse(400);
+
+      final future =  sut.request(url: url, method: 'post');
+
+      expect(future, throwsA(HttpError.badRequest));
     });
   });
 }
