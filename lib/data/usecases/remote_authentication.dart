@@ -17,7 +17,8 @@ class RemoteAuthentication implements Authentication {
     @required this.httpClient,
     @required this.url
   });
-
+  
+  @override
   Future<AccountEntity> auth(AuthenticationParams params) async {
 
     final body = RemoteAuthenticationParams.fromDomain(params).toJson();
@@ -33,6 +34,7 @@ class RemoteAuthentication implements Authentication {
 }
 
 class RemoteAuthenticationParams {
+  
   final String email;
   final String password;
 
