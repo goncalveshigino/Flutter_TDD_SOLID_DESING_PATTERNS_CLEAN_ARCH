@@ -10,7 +10,6 @@ import 'package:mockito/mockito.dart';
 class LoginPresenterSpy extends Mock implements LoginPresenter {}
 
 void main() {
-
   LoginPresenter presenter;
   StreamController<String> emailErrorController;
   StreamController<String> passwordErrorController;
@@ -18,41 +17,46 @@ void main() {
   StreamController<bool> isFormValidController;
   StreamController<bool> isLoadingController;
 
-  
-
-  Future<void> loadPage(WidgetTester tester) async {
-    
-    presenter               = LoginPresenterSpy();
-    emailErrorController    = StreamController<String>();
-    passwordErrorController = StreamController<String>();
-    mainErrorController     = StreamController<String>();
-    isFormValidController   = StreamController<bool>();
-    isLoadingController     = StreamController<bool>();
-
+  void mockStreams() {
     when(presenter.emailErrorStream)
         .thenAnswer((_) => emailErrorController.stream);
     when(presenter.passwordErrorStream)
         .thenAnswer((_) => passwordErrorController.stream);
     when(presenter.mainErrorStream)
-      .thenAnswer((_) => mainErrorController.stream);
+        .thenAnswer((_) => mainErrorController.stream);
     when(presenter.isFormValidStream)
         .thenAnswer((_) => isFormValidController.stream);
     when(presenter.isLoadingStream)
         .thenAnswer((_) => isLoadingController.stream);
-
-    final loginPage = MaterialApp(home: LoginPage(presenter));
-    await tester.pumpWidget(loginPage);
   }
 
-  tearDown(() {
+  void initStreams() {
+    presenter = LoginPresenterSpy();
+    emailErrorController = StreamController<String>();
+    passwordErrorController = StreamController<String>();
+    mainErrorController = StreamController<String>();
+    isFormValidController = StreamController<bool>();
+    isLoadingController = StreamController<bool>();
+  }
+
+  void closeStreams() {
     emailErrorController.close();
     passwordErrorController.close();
     isFormValidController.close();
     isLoadingController.close();
     mainErrorController.close();
+  }
+
+  Future<void> loadPage(WidgetTester tester) async {
+    initStreams();
+    mockStreams();
+    final loginPage = MaterialApp(home: LoginPage(presenter));
+    await tester.pumpWidget(loginPage);
+  }
+
+  tearDown(() {
+    closeStreams();
   });
-
-
 
   testWidgets('Should load with correct initial state',
       (WidgetTester tester) async {
@@ -71,8 +75,6 @@ void main() {
     expect(find.byType(CircularProgressIndicator), findsNothing);
   });
 
-
-
   testWidgets('Should call validate with correct values',
       (WidgetTester tester) async {
     await loadPage(tester);
@@ -86,8 +88,6 @@ void main() {
     verify(presenter.validatePassword(password));
   });
 
-
-
   testWidgets('Should present error if email is invalid',
       (WidgetTester tester) async {
     await loadPage(tester);
@@ -97,8 +97,6 @@ void main() {
 
     expect(find.text('any error'), findsOneWidget);
   });
-
-
 
   testWidgets('Should present no error if email is valid',
       (WidgetTester tester) async {
@@ -114,8 +112,6 @@ void main() {
     );
   });
 
-
-
   testWidgets('Should present no error if email is valid',
       (WidgetTester tester) async {
     await loadPage(tester);
@@ -130,8 +126,6 @@ void main() {
     );
   });
 
-
-
   testWidgets('Should present error if email is invalid',
       (WidgetTester tester) async {
     await loadPage(tester);
@@ -141,8 +135,6 @@ void main() {
 
     expect(find.text('any error'), findsOneWidget);
   });
-
-
 
   testWidgets('Should present no error if password is valid',
       (WidgetTester tester) async {
@@ -158,8 +150,6 @@ void main() {
     );
   });
 
-
-
   testWidgets('Should present no error if password is valid',
       (WidgetTester tester) async {
     await loadPage(tester);
@@ -174,8 +164,6 @@ void main() {
     );
   });
 
-
-
   testWidgets('Should enable button if form is valid',
       (WidgetTester tester) async {
     await loadPage(tester);
@@ -187,8 +175,6 @@ void main() {
     expect(button.onPressed, isNotNull);
   });
 
-
-
   testWidgets('Should enable button if form is valid',
       (WidgetTester tester) async {
     await loadPage(tester);
@@ -199,8 +185,6 @@ void main() {
     final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
     expect(button.onPressed, null);
   });
-
-
 
   testWidgets('Should call authentication on form submit',
       (WidgetTester tester) async {
@@ -214,8 +198,6 @@ void main() {
     verify(presenter.auth()).called(1);
   });
 
-
-
   testWidgets('Should present loading', (WidgetTester tester) async {
     await loadPage(tester);
 
@@ -224,8 +206,6 @@ void main() {
 
     expect(find.byType(CircularProgressIndicator), findsOneWidget);
   });
-
-
 
   testWidgets('Should hide loading', (WidgetTester tester) async {
     await loadPage(tester);
@@ -238,9 +218,8 @@ void main() {
     expect(find.byType(CircularProgressIndicator), findsNothing);
   });
 
-
-
-  testWidgets('Should present error message if authentication fails', (WidgetTester tester) async {
+  testWidgets('Should present error message if authentication fails',
+      (WidgetTester tester) async {
     await loadPage(tester);
 
     mainErrorController.add('main error');
@@ -249,15 +228,11 @@ void main() {
     expect(find.text('main error'), findsOneWidget);
   });
 
-
   testWidgets('Should close streams on dispose', (WidgetTester tester) async {
     await loadPage(tester);
 
-  
-    addTearDown((){
+    addTearDown(() {
       verify(presenter.dispose()).called(1);
     });
   });
-
-
 }
