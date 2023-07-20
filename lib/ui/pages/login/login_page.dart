@@ -31,28 +31,30 @@ class LoginPage extends StatelessWidget {
                           labelText: 'Email',
                           icon: Icon(Icons.email,
                               color: Theme.of(context).primaryColorLight),
-                          errorText: snapshot.data,
+                          errorText: snapshot.data?.isEmpty == true ? null : snapshot.data,
                         ),
                         keyboardType: TextInputType.emailAddress,
                         onChanged: presenter.validateEmail,
                       );
                     },
                   ),
-                  
+
                   Padding(
                     padding: const EdgeInsets.only(left: 20, right: 20),
-                    child: TextFormField(
-                      style:
-                          TextStyle(color: Theme.of(context).primaryColorLight),
-                      decoration: InputDecoration(
-                        labelText: 'Senha',
-                        icon: Icon(
-                          Icons.lock,
-                          color: Theme.of(context).primaryColorLight,
-                        ),
-                      ),
-                      obscureText: true,
-                      onChanged: presenter.validatePassword,
+                    child: StreamBuilder<String>(
+                      stream: presenter.passwordErrorStream,
+                      builder: (context, snapshot) {
+                        return TextFormField(
+                          style: TextStyle(color: Theme.of(context).primaryColorLight),
+                          decoration: InputDecoration(
+                            labelText: 'Senha',
+                            icon: Icon(Icons.lock,color: Theme.of(context).primaryColorLight),
+                            errorText: snapshot.data
+                          ),
+                          obscureText: true,
+                          onChanged: presenter.validatePassword,
+                        );
+                      }
                     ),
                   ),
                   const SizedBox(
