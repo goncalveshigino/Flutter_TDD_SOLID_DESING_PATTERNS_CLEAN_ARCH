@@ -61,42 +61,33 @@ class LoginPage extends StatelessWidget {
                     height: 40,
                   ),
 
-                  // Container(
-                  //   height: 60,
-                  //   width: 160,
-                  //   decoration: BoxDecoration(
-                  //       color: Theme.of(context).primaryColorLight,
-                  //       borderRadius: BorderRadius.circular(40)),
-                  //   child: Center(
-                  //     child: Text(
-                  //       'Entrar'.toUpperCase(),
-                  //       style: const TextStyle(
-                  //           color: Colors.white, fontWeight: FontWeight.bold),
-                  //     ),
-                  //   ),
-                  // ),
-
+            
                   SizedBox(
                     height: 60,
                     width: 200.0,
-                    child: ElevatedButton(
-                      onPressed: null,
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              Theme.of(context).primaryColor),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0),
+                    child: StreamBuilder<bool>(
+                      stream: presenter.isFormValidStream,
+                      builder: (context, snapshot) {
+                        return ElevatedButton(
+                          onPressed: snapshot.data == true ? (){} : null,
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  Theme.of(context).primaryColor),
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                ),
+                              )),
+                          child: const Text(
+                            'Entrar',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15.0,
                             ),
-                          )),
-                      child: const Text(
-                        'Entrar',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15.0,
-                        ),
-                      ),
+                          ),
+                        );
+                      }
                     ),
                   ),
 
@@ -114,6 +105,7 @@ class LoginPage extends StatelessWidget {
                           TextStyle(color: Theme.of(context).primaryColorLight),
                     ),
                   ),
+                  
                 ],
               ),
             )
