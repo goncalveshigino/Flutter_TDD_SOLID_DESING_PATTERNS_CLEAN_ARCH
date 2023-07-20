@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../pages.dart';
 
@@ -52,94 +53,83 @@ class _LoginPageState extends State<LoginPage> {
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
-                Form(
-                  child: Column(
-                    children: [
-
-                      StreamBuilder<String>(
-                        stream: widget.presenter.emailErrorStream,
-                        builder: (context, snapshot) {
-                          return TextFormField(
-                            decoration: InputDecoration(
-                              labelText: 'Email',
-                              icon: Icon(Icons.email,
-                                  color: Theme.of(context).primaryColorLight),
-                              errorText: snapshot.data?.isEmpty == true ? null : snapshot.data,
-                            ),
-                            keyboardType: TextInputType.emailAddress,
-                            onChanged: widget.presenter.validateEmail,
-                          );
-                        },
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
-                        child: StreamBuilder<String>(
-                          stream: widget.presenter.passwordErrorStream,
+                Provider(
+                  create: (_) => widget.presenter,
+                  child: Form(
+                    child: Column(
+                      children: [
+                
+                        StreamBuilder<String>(
+                          stream: widget.presenter.emailErrorStream,
                           builder: (context, snapshot) {
                             return TextFormField(
-                              style: TextStyle(color: Theme.of(context).primaryColorLight),
                               decoration: InputDecoration(
-                                labelText: 'Senha',
-                                icon: Icon(Icons.lock,color: Theme.of(context).primaryColorLight),
+                                labelText: 'Email',
+                                icon: Icon(Icons.email,
+                                    color: Theme.of(context).primaryColorLight),
                                 errorText: snapshot.data?.isEmpty == true ? null : snapshot.data,
                               ),
-                              obscureText: true,
-                              onChanged: widget.presenter.validatePassword,
+                              keyboardType: TextInputType.emailAddress,
+                              onChanged: widget.presenter.validateEmail,
                             );
-                          }
+                          },
                         ),
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-
                 
-                      SizedBox(
-                        height: 60,
-                        width: 200.0,
-                        child: StreamBuilder<bool>(
-                          stream: widget.presenter.isFormValidStream,
-                          builder: (context, snapshot) {
-                            return ElevatedButton(
-                              onPressed: snapshot.data == true ? widget.presenter.auth : null,
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Theme.of(context).primaryColor),
-                                  shape: MaterialStateProperty.all(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20.0),
-                                    ),
-                                  )),
-                              child: const Text(
-                                'Entrar',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15.0,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20, right: 20),
+                          child: EmailInput(),
+                        ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                
+                  
+                        SizedBox(
+                          height: 60,
+                          width: 200.0,
+                          child: StreamBuilder<bool>(
+                            stream: widget.presenter.isFormValidStream,
+                            builder: (context, snapshot) {
+                              return ElevatedButton(
+                                onPressed: snapshot.data == true ? widget.presenter.auth : null,
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(
+                                        Theme.of(context).primaryColor),
+                                    shape: MaterialStateProperty.all(
+                                      RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20.0),
+                                      ),
+                                    )),
+                                child: const Text(
+                                  'Entrar',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15.0,
+                                  ),
                                 ),
-                              ),
-                            );
-                          }
+                              );
+                            }
+                          ),
                         ),
-                      ),
-
-                      const SizedBox(height: 17),
-
-                      TextButton.icon(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.person,
-                          color: Theme.of(context).primaryColorLight,
+                
+                        const SizedBox(height: 17),
+                
+                        TextButton.icon(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.person,
+                            color: Theme.of(context).primaryColorLight,
+                          ),
+                          label: Text(
+                            'Criar conta',
+                            style:
+                                TextStyle(color: Theme.of(context).primaryColorLight),
+                          ),
                         ),
-                        label: Text(
-                          'Criar conta',
-                          style:
-                              TextStyle(color: Theme.of(context).primaryColorLight),
-                        ),
-                      ),
-
-                    ],
+                
+                      ],
+                    ),
                   ),
                 )
               ],
@@ -150,3 +140,4 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
+
