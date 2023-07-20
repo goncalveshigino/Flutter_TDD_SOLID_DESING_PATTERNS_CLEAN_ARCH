@@ -59,25 +59,11 @@ class _LoginPageState extends State<LoginPage> {
                     child: Column(
                       children: [
                 
-                        StreamBuilder<String>(
-                          stream: widget.presenter.emailErrorStream,
-                          builder: (context, snapshot) {
-                            return TextFormField(
-                              decoration: InputDecoration(
-                                labelText: 'Email',
-                                icon: Icon(Icons.email,
-                                    color: Theme.of(context).primaryColorLight),
-                                errorText: snapshot.data?.isEmpty == true ? null : snapshot.data,
-                              ),
-                              keyboardType: TextInputType.emailAddress,
-                              onChanged: widget.presenter.validateEmail,
-                            );
-                          },
-                        ),
+                        EmailInput(),
                 
                         Padding(
                           padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: EmailInput(),
+                          child: PasswordInput(),
                         ),
                         const SizedBox(
                           height: 40,
@@ -87,30 +73,7 @@ class _LoginPageState extends State<LoginPage> {
                         SizedBox(
                           height: 60,
                           width: 200.0,
-                          child: StreamBuilder<bool>(
-                            stream: widget.presenter.isFormValidStream,
-                            builder: (context, snapshot) {
-                              return ElevatedButton(
-                                onPressed: snapshot.data == true ? widget.presenter.auth : null,
-                                style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                        Theme.of(context).primaryColor),
-                                    shape: MaterialStateProperty.all(
-                                      RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20.0),
-                                      ),
-                                    )),
-                                child: const Text(
-                                  'Entrar',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 15.0,
-                                  ),
-                                ),
-                              );
-                            }
-                          ),
+                          child: LoginButton(),
                         ),
                 
                         const SizedBox(height: 17),
