@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../pages.dart';
 
 class LoginPage extends StatelessWidget {
-  const LoginPage({Key key}) : super(key: key);
+  final LoginPresenter presenter;
+  const LoginPage(this.presenter, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,21 +23,24 @@ class LoginPage extends StatelessWidget {
               child: Column(
                 children: [
 
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                        labelText: 'Email',
-                        icon: Icon(
-                          Icons.email,
-                          color: Theme.of(context).primaryColorLight,
+                  StreamBuilder<String>(
+                    stream: presenter.emailErrorStream,
+                    builder: (context, snapshot) {
+                      return TextFormField(
+                        decoration: InputDecoration(
+                          labelText: 'Email',
+                          icon: Icon(Icons.email,
+                              color: Theme.of(context).primaryColorLight),
+                          errorText: snapshot.data,
                         ),
-                      ),
-                      keyboardType: TextInputType.emailAddress,
-                    ),
+                        keyboardType: TextInputType.emailAddress,
+                        onChanged: presenter.validateEmail,
+                      );
+                    },
                   ),
+                  
                   Padding(
-                    padding: const EdgeInsets.only( left: 20, right: 20),
+                    padding: const EdgeInsets.only(left: 20, right: 20),
                     child: TextFormField(
                       style:
                           TextStyle(color: Theme.of(context).primaryColorLight),
@@ -48,6 +52,7 @@ class LoginPage extends StatelessWidget {
                         ),
                       ),
                       obscureText: true,
+                      onChanged: presenter.validatePassword,
                     ),
                   ),
                   const SizedBox(
@@ -93,7 +98,7 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
 
-                  SizedBox( height: 17 ),
+                  const SizedBox(height: 17),
 
                   TextButton.icon(
                     onPressed: () {},
