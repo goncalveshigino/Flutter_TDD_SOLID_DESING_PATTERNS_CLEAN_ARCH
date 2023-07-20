@@ -10,29 +10,26 @@ import 'package:mockito/mockito.dart';
 class LoginPresenterSpy extends Mock implements LoginPresenter {}
 
 void main() {
-  
   LoginPresenter presenter;
   StreamController<String> emailErrorController;
   StreamController<String> passwordErrorController;
   StreamController<bool> isFormValidController;
 
   Future<void> loadPage(WidgetTester tester) async {
-
     presenter = LoginPresenterSpy();
     emailErrorController = StreamController<String>();
     passwordErrorController = StreamController<String>();
     isFormValidController = StreamController<bool>();
 
+    when(presenter.emailErrorStream)
+        .thenAnswer((_) => emailErrorController.stream);
+    when(presenter.passwordErrorStream)
+        .thenAnswer((_) => passwordErrorController.stream);
+    when(presenter.isFormValidStream)
+        .thenAnswer((_) => isFormValidController.stream);
 
-    when(presenter.emailErrorStream).thenAnswer((_) => emailErrorController.stream);
-    when(presenter.passwordErrorStream).thenAnswer((_) => passwordErrorController.stream);
-    when(presenter.isFormValidStream).thenAnswer((_) => isFormValidController.stream);
-
-
-        
     final loginPage = MaterialApp(home: LoginPage(presenter));
     await tester.pumpWidget(loginPage);
-
   }
 
   tearDown(() {
@@ -45,10 +42,12 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    final emailTextChildren = find.descendant(of: find.bySemanticsLabel('Email'), matching: find.byType(Text));
+    final emailTextChildren = find.descendant(
+        of: find.bySemanticsLabel('Email'), matching: find.byType(Text));
     expect(emailTextChildren, findsOneWidget);
 
-    final passwordTextChildren = find.descendant(of: find.bySemanticsLabel('Senha'), matching: find.byType(Text));
+    final passwordTextChildren = find.descendant(
+        of: find.bySemanticsLabel('Senha'), matching: find.byType(Text));
     expect(passwordTextChildren, findsOneWidget);
 
     final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
@@ -116,9 +115,7 @@ void main() {
     expect(find.text('any error'), findsOneWidget);
   });
 
-
-
-   testWidgets('Should present no error if password is valid',
+  testWidgets('Should present no error if password is valid',
       (WidgetTester tester) async {
     await loadPage(tester);
 
@@ -146,8 +143,8 @@ void main() {
     );
   });
 
-
-    testWidgets('Should enable button if form is valid', (WidgetTester tester) async {
+  testWidgets('Should enable button if form is valid',
+      (WidgetTester tester) async {
     await loadPage(tester);
 
     isFormValidController.add(true);
@@ -157,7 +154,8 @@ void main() {
     expect(button.onPressed, isNotNull);
   });
 
-  testWidgets('Should enable button if form is valid', (WidgetTester tester) async {
+  testWidgets('Should enable button if form is valid',
+      (WidgetTester tester) async {
     await loadPage(tester);
 
     isFormValidController.add(false);
@@ -165,5 +163,18 @@ void main() {
 
     final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
     expect(button.onPressed, null);
+  });
+
+  testWidgets('Should call authentication on form submit',
+      (WidgetTester tester) async {
+    await loadPage(tester);
+
+    isFormValidController.add(true);
+    await tester.pump();
+    await tester.tap(find.byType(ElevatedButton));
+    await tester.pump();
+
+
+    verify(presenter.auth()).called(1);
   });
 }
