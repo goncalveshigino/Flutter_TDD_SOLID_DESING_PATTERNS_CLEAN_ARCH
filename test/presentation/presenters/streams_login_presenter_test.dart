@@ -9,6 +9,7 @@ import 'package:flutter_tdd_clean_arch_solid_desin_patterns/presentation/present
 
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/usecases/usecases.dart';
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/entities/entities.dart';
+import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/helpers/helpers.dart';
 
 // Validar Estream
 
@@ -32,8 +33,13 @@ void main() {
 
   PostExpectation mockAuthenticationCall() => when(authentication.auth(any));
 
-   void mockAuthentication({String field, String value}) {
+  void mockAuthentication({String field, String value}) {
     mockAuthenticationCall().thenAnswer((_) async => AccountEntity(faker.guid.guid()));
+  }
+
+
+  void mockAuthenticationError(DomainError error) {
+    mockAuthenticationCall().thenThrow(error);
   }
 
   setUp(() {
@@ -142,6 +148,21 @@ void main() {
     sut.validatePassword(password);
 
     expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
+
+    await sut.auth();
+
+ 
+  });
+
+
+   test('Should emit correct events on InvalidCredentialsError', () async {
+    mockAuthenticationError(DomainError.invalidCredentials);
+
+    sut.validateEmail(email);
+    sut.validatePassword(password);
+
+    expectLater(sut.isLoadingStream, emitsInOrder([false]));
+    sut.mainErrorStream.listen(expectAsync1((error) => expect(error, 'Credencias invalidas.')));
 
     await sut.auth();
 
