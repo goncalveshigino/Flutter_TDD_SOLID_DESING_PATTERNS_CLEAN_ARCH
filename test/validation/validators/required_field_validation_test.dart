@@ -4,10 +4,8 @@ import 'package:flutter_tdd_clean_arch_solid_desin_patterns/validation/validatio
 
 
 
-
-
-
 void main(){
+  
   RequiredFieldValidation sut;
 
   setUp((){

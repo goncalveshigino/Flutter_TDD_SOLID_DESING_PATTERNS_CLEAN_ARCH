@@ -7,6 +7,7 @@ import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/helpers/helpe
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/usecases/usecases.dart';
 
 class LoginState {
+  
   String email;
   String password;
   String emailError;
@@ -22,6 +23,7 @@ class LoginState {
 }
 
 class StreamLoginPresenter {
+  
   final Validation validation;
   final Authentication authentication;
 
