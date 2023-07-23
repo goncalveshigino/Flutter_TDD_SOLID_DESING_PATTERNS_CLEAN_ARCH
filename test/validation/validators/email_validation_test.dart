@@ -10,7 +10,6 @@ import 'package:flutter_tdd_clean_arch_solid_desin_patterns/validation/validatio
 void main(){
  EmailValidation sut;
 
-
  setUp((){
     sut = EmailValidation('any_field');
  });
