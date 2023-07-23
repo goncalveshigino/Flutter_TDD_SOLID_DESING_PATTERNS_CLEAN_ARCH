@@ -16,7 +16,7 @@ class RequiredFieldValidation implements FieldValidation {
 
   @override
   String validate(String value) {
-    return value.isEmpty ? 'Campo obrigatorio' : null;
+    return value?.isNotEmpty == true ? null : 'Campo obrigatorio';
   }
 
 }
@@ -30,13 +30,18 @@ void main(){
 
 
   test('Should return null if value is not empty',(){
-
      expect(sut.validate('any_value'), null);
   });
 
 
-   test('Should return null if value is empty',(){
-   
+  test('Should return null if value is empty',(){
      expect( sut.validate(''), 'Campo obrigatorio');
   });
+
+
+  test('Should return null if value is null',(){
+     expect( sut.validate(null), 'Campo obrigatorio');
+  });
+
+  
 }
