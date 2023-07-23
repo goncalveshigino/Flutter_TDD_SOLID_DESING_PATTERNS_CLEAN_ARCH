@@ -9,16 +9,10 @@ import 'package:flutter_tdd_clean_arch_solid_desin_patterns/presentation/present
 
 // Validar Estream
 
-
-
-
-
-
-
 class ValidationSpy extends Mock implements Validation {}
 
 void main() {
-  
+
   StreamLoginPresenter sut;
   ValidationSpy validation;
   String email;
