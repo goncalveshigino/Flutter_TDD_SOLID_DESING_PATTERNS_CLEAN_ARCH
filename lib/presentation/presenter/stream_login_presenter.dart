@@ -9,9 +9,9 @@ class LoginState {
 }
 
 class StreamLoginPresenter {
+
   final Validation validation;
   final _controller = StreamController<LoginState>.broadcast();
-
   final _state = LoginState();
 
   Stream<String> get emailErrorStream =>
@@ -24,6 +24,11 @@ class StreamLoginPresenter {
 
   void validateEmail(String email) {
     _state.emailError = validation.validate(field: 'email', value: email);
+    _controller.add(_state);
+  }
+
+  void validatePassword(String password) {
+    _state.emailError = validation.validate(field: 'password', value: password);
     _controller.add(_state);
   }
 }
