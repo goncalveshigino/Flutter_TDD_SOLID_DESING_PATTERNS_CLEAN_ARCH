@@ -1,13 +1,16 @@
-import 'package:flutter_tdd_clean_arch_solid_desin_patterns/presentation/presentation.dart';
-import 'package:flutter_tdd_clean_arch_solid_desin_patterns/validation/validation.dart';
+import '../../../../presentation/presentation.dart';
+import '../../../../validation/validation.dart';
 
 
 Validation makeLoginValidation() {
-  
- return ValidationComposite([
+ return ValidationComposite(makeLoginValidations());
+}
+
+
+List<FieldValidation> makeLoginValidations() {
+  return [
     RequiredFieldValidation('email'),
     EmailValidation('email'),
     RequiredFieldValidation('password')
-  ]);
-
+  ];
 }
