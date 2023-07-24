@@ -50,36 +50,41 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Provider(
                 create: (_) => widget.presenter,
-                child: Form(
-                  child: Column(
-                    children: [
-                      EmailInput(),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20, right: 20),
-                        child: PasswordInput(),
-                      ),
-                      const SizedBox(
-                        height: 40,
-                      ),
-                      SizedBox(
-                        height: 60,
-                        width: 200.0,
-                        child: LoginButton(),
-                      ),
-                      const SizedBox(height: 17),
-                      TextButton.icon(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.person,
-                          color: Theme.of(context).primaryColorLight,
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Form(
+                    child: Column(
+                      children: [
+
+                        EmailInput(),
+
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8, bottom: 32),
+                          child: PasswordInput(),
                         ),
-                        label: Text(
-                          'Criar conta',
-                          style: TextStyle(
-                              color: Theme.of(context).primaryColorLight),
+                        const SizedBox(
+                          height: 40,
                         ),
-                      ),
-                    ],
+                        const SizedBox(
+                          height: 50,
+                          width: 120.0,
+                          child: LoginButton(),
+                        ),
+                        const SizedBox(height: 17),
+                        TextButton.icon(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.person,
+                            color: Theme.of(context).primaryColorLight,
+                          ),
+                          label: Text(
+                            'Criar conta',
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColorLight),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               )
