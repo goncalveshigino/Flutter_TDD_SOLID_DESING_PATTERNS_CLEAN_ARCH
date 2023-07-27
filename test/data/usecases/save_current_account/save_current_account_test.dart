@@ -30,7 +30,7 @@ void main() {
     account = AccountEntity(faker.guid.guid());
   });
 
-  void mockError(){
+  void mockError(){ 
     when(saveSecureCacheStorage.saveSecure(key: anyNamed('key'), value: anyNamed('value')))
       .thenThrow(Exception());
   }
@@ -50,4 +50,5 @@ void main() {
 
        expect(future, throwsA(DomainError.unexpected));
   });
+
 }
