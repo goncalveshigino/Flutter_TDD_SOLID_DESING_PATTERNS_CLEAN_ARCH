@@ -8,9 +8,9 @@ import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/helpers/helpe
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/usecases/usecases.dart';
 
 class GetxLoginPresenter extends GetxController implements LoginPresenter {
-
   final Validation validation;
   final Authentication authentication;
+  final SaveCurrentAccount saveCurrentAccount;
 
   String _email;
   String _password;
@@ -33,7 +33,10 @@ class GetxLoginPresenter extends GetxController implements LoginPresenter {
   @override
   Stream<bool> get isLoadingStream => _isLoading.stream.distinct();
 
-  GetxLoginPresenter({@required this.validation, @required this.authentication});
+  GetxLoginPresenter(
+      {@required this.validation,
+      @required this.authentication,
+      @required this.saveCurrentAccount});
 
   @override
   void validateEmail(String email) {
@@ -61,12 +64,13 @@ class GetxLoginPresenter extends GetxController implements LoginPresenter {
   Future<void> auth() async {
     _isLoading.value = true;
     try {
-      await authentication
-          .auth(AuthenticationParams(email: _email, password: _password));
+      final account = await authentication.auth(AuthenticationParams(email: _email, password: _password));
+      await saveCurrentAccount.save(account);
     } on DomainError catch (error) {
       _mainError.value = error.description;
+      
     }
-    _isLoading.value = false;
+     _isLoading.value = false;
   }
 
   @override
