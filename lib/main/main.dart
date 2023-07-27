@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:provider/provider.dart';
 
 import '../ui/components/app_theme.dart';
 import 'factories/factories.dart';
@@ -11,6 +12,7 @@ import 'factories/factories.dart';
 
 
 void main() {
+  Provider.debugCheckInvalidValueType = null;
   runApp( const App());
 }
 

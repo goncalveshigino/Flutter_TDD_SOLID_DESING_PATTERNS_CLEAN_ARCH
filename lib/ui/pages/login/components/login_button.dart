@@ -15,7 +15,7 @@ class LoginButton extends StatelessWidget {
           return ElevatedButton(
             onPressed: snapshot.data == true ? presenter.auth : null,
             style: ButtonStyle(
-              backgroundColor: snapshot.data == true ? MaterialStateProperty.all(Theme.of(context).primaryColor) : null ,
+             backgroundColor: snapshot.data == true ? MaterialStateProperty.all(Theme.of(context).primaryColor) : null ,
               shape: MaterialStateProperty.all(
                 RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
