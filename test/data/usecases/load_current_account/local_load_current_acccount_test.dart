@@ -8,14 +8,10 @@ import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/helpers/helpe
 
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/data/data.dart';
 
-
-
-
-
-class FetchSecureCacheStorageSpy extends Mock implements FetchSecureCacheStorage {}
+class FetchSecureCacheStorageSpy extends Mock
+    implements FetchSecureCacheStorage {}
 
 void main() {
-
   LocalLoadCurrentAccount sut;
   FetchSecureCacheStorageSpy fetchSecureCacheStorage;
   String token;
@@ -54,7 +50,7 @@ void main() {
   test('Should throw UnexpectedError if FetchSecureCacheStorage', () async {
     mockFetchSecureError();
 
-    final future =  sut.load();
+    final future = sut.load();
 
     expect(future, throwsA(DomainError.unexpected));
   });
