@@ -1,34 +1,21 @@
 import 'package:faker/faker.dart';
-import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/helpers/helpers.dart';
-import 'package:meta/meta.dart';
+
 import 'package:mockito/mockito.dart';
 import 'package:test/test.dart';
 
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/entities/entities.dart';
-import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/usecases/usecases.dart';
+import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/helpers/helpers.dart';
 
-class LocalLoadCurrentAccount implements LoadCurrentAccount {
-  final FetchSecureCacheStorage fetchSecureCacheStorage;
+import 'package:flutter_tdd_clean_arch_solid_desin_patterns/data/data.dart';
 
-  LocalLoadCurrentAccount({@required this.fetchSecureCacheStorage});
-  Future<AccountEntity> load() async {
-    try {
-    final token = await fetchSecureCacheStorage.fetchSecure('token');
-    return AccountEntity(token);
-    } catch (e) {
-      throw(DomainError.unexpected);
-    }
-  }
-}
 
-abstract class FetchSecureCacheStorage {
-  Future<String> fetchSecure(String key);
-}
 
-class FetchSecureCacheStorageSpy extends Mock
-    implements FetchSecureCacheStorage {}
+
+
+class FetchSecureCacheStorageSpy extends Mock implements FetchSecureCacheStorage {}
 
 void main() {
+
   LocalLoadCurrentAccount sut;
   FetchSecureCacheStorageSpy fetchSecureCacheStorage;
   String token;
