@@ -11,6 +11,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     void _hadeKeyBorde() {
       final currecntFocus = FocusScope.of(context);
       if (!currecntFocus.hasPrimaryFocus) {
@@ -20,12 +21,15 @@ class LoginPage extends StatelessWidget {
 
     return Scaffold(
       body: Builder(builder: (context) {
+
         presenter.isLoadingStream.listen((isLoading) {
+
           if (isLoading) {
             showLoading(context);
           } else {
             hideLoading(context);
           }
+
         });
 
         presenter.mainErrorStream.listen((error) {
