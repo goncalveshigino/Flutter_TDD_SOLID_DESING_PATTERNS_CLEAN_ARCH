@@ -28,10 +28,11 @@ class App extends StatelessWidget {
       title: '4Dev',
       debugShowCheckedModeBanner: false,
       theme: makeAppTheme(),
-      initialRoute: '/login',
+      initialRoute: '/',
       getPages: [
-        GetPage(name: '/login', page: makeLoginPage ), 
-        GetPage(name: '/surveys', page: () => const Scaffold(body: Text('Enquetes')))
+        GetPage(name: '/', page: makeLoginPage,transition: Transition.fade), 
+        GetPage(name: '/login', page: makeLoginPage,transition: Transition.fade ), 
+        GetPage(name: '/surveys', page: () => const Scaffold(body: Text('Enquetes')),transition: Transition.fade)
       ],
     );
   }
