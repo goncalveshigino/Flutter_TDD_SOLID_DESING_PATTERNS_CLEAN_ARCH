@@ -42,6 +42,7 @@ void main() {
   });
 
   group('fetchSecure', () {
+
     PostExpectation mockFetchSecureCall() =>
         when(secureStorage.read(key: anyNamed('key')));
 
@@ -77,4 +78,5 @@ void main() {
       expect(future, throwsA(const TypeMatcher<Exception>()));
     });
   });
+  
 }
