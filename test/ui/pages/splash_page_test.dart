@@ -5,36 +5,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:mockito/mockito.dart';
 
-class SplashPage extends StatelessWidget {
-  final SplashPresenter presenter;
+import 'package:flutter_tdd_clean_arch_solid_desin_patterns/ui/pages/splash/splash.dart';
 
-  const SplashPage({Key key, @required this.presenter}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    presenter.loadCurrentAccount();
 
-    return Scaffold(
-      appBar: AppBar(title: const Text('4Dev')),
-      body: Builder(builder: (context) {
-        presenter.navigateToStream.listen((page) {
-          if (page?.isNotEmpty == true) {
-            Get.offAllNamed(page);
-          }
-        });
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      }),
-    );
-  }
-}
 
-abstract class SplashPresenter {
-  Stream<String> get navigateToStream;
-
-  Future<void> loadCurrentAccount();
-}
 
 class SplasePresenterSpy extends Mock implements SplashPresenter {}
 
@@ -74,7 +49,7 @@ void main() {
       (WidgetTester tester) async {
     await loadPage(tester);
 
-    verify(presenter.loadCurrentAccount()).called(1);
+    verify(presenter.checkAccount()).called(1);
   });
 
   testWidgets('Should load page', (WidgetTester tester) async {
@@ -85,5 +60,19 @@ void main() {
 
     expect(Get.currentRoute, '/any_route');
     expect(find.text('fake page'), findsWidgets);
+  });
+
+
+  testWidgets('Should not change page', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    navigateToController.add('');
+    await tester.pump();
+    expect(Get.currentRoute, '/');
+
+
+    navigateToController.add(null);
+    await tester.pump();
+    expect(Get.currentRoute, '/');
   });
 }
