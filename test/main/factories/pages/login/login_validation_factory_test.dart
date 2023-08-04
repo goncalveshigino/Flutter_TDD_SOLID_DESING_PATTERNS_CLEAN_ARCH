@@ -12,9 +12,9 @@ void main(){
     final validations =  makeLoginValidations();
 
     expect(validations, [
-        RequiredFieldValidation('email'),
-        EmailValidation('email'),
-        RequiredFieldValidation('password')
+        const RequiredFieldValidation('email'),
+        const EmailValidation('email'),
+        const RequiredFieldValidation('password')
     ]);
   });
   

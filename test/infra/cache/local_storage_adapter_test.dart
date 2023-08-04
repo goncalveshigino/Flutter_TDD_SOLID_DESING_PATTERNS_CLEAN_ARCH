@@ -41,10 +41,11 @@ void main() {
     });
   });
 
+
+
   group('fetchSecure', () {
 
-    PostExpectation mockFetchSecureCall() =>
-        when(secureStorage.read(key: anyNamed('key')));
+    PostExpectation mockFetchSecureCall() => when(secureStorage.read(key: anyNamed('key')));
 
     void mockFetchSecure() {
       mockFetchSecureCall().thenAnswer((_) async => value);

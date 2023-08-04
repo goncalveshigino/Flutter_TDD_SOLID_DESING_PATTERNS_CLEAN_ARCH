@@ -14,14 +14,14 @@ import 'package:flutter_tdd_clean_arch_solid_desin_patterns/ui/pages/splash/spla
 class SplasePresenterSpy extends Mock implements SplashPresenter {}
 
 void main() {
+  
   SplasePresenterSpy presenter;
   StreamController<String> navigateToController;
 
   Future<void> loadPage(WidgetTester tester) async {
     presenter = SplasePresenterSpy();
     navigateToController = StreamController<String>();
-    when(presenter.navigateToStream)
-        .thenAnswer((_) => navigateToController.stream);
+    when(presenter.navigateToStream).thenAnswer((_) => navigateToController.stream);
 
     await tester.pumpWidget(GetMaterialApp(
       initialRoute: '/',
@@ -38,8 +38,7 @@ void main() {
     navigateToController.close();
   });
 
-  testWidgets('Should present spinner on page load',
-      (WidgetTester tester) async {
+  testWidgets('Should present spinner on page load', (WidgetTester tester) async {
     await loadPage(tester);
 
     expect(find.byType(CircularProgressIndicator), findsOneWidget);

@@ -8,7 +8,6 @@ LoginPresenter makeStreamLoginPresenter() {
     authentication: makeRemoteAuthentication(), 
     validation: makeLoginValidation()
   );
- 
 }
 
 LoginPresenter makeGetxLoginPresenter() {

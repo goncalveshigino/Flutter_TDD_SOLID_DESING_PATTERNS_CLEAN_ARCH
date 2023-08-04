@@ -7,8 +7,9 @@ import '../pages.dart';
 
 
 class SplashPage extends StatelessWidget {
-  final SplashPresenter presenter;
 
+  final SplashPresenter presenter;
+  
   const SplashPage({Key key, @required this.presenter}) : super(key: key);
 
   @override

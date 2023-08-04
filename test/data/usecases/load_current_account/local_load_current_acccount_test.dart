@@ -16,8 +16,7 @@ void main() {
   FetchSecureCacheStorageSpy fetchSecureCacheStorage;
   String token;
 
-  PostExpectation mockFetchSecureCall() =>
-      when(fetchSecureCacheStorage.fetchSecure(any));
+  PostExpectation mockFetchSecureCall() => when(fetchSecureCacheStorage.fetchSecure(any));
 
   void mockFetchSecure() {
     mockFetchSecureCall().thenAnswer((_) async => token);
@@ -47,7 +46,7 @@ void main() {
     expect(account, AccountEntity(token));
   });
 
-  test('Should throw UnexpectedError if FetchSecureCacheStorage', () async {
+  test('Should throw UnexpectedError if FetchSecureCacheStorage throws', () async {
     mockFetchSecureError();
 
     final future = sut.load();
