@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 
+import '../../../../data/data.dart';
+import '../../../../infra/http/http.dart';
+import '../../../../presentation/presentation.dart';
 import '../../../../ui/pages/pages.dart';
+import '../../../../validation/validation.dart';
 import '../../factories.dart';
 
 
@@ -10,19 +15,3 @@ Widget makeLoginPage() {
 }
 
 
-  // const url = 'http://fordevs.herokuapp.com/api/login';
-  // final client = Client();
-  // final httpAdapter = HttpAdapter(client);
-  // final remoteAuthentication = RemoteAuthentication(
-  //   httpClient: httpAdapter,
-  //    url: url,
-  // );
-  // final validationComposite = ValidationComposite([
-  //   RequiredFieldValidation('email'),
-  //   EmailValidation('email'),
-  //   RequiredFieldValidation('password')
-  // ]);
-  // final streamLoginPresenter = StreamLoginPresenter(
-  //   authentication: remoteAuthentication, 
-  //   validation: validationComposite
-  // );

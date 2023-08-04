@@ -27,21 +27,6 @@ ThemeData makeAppTheme() {
     ),
     alignLabelWithHint: true,
   );
-  final elevatedButton = ElevatedButtonThemeData(
-    style: ButtonStyle(
-      padding: MaterialStateProperty.all(
-        const EdgeInsets.symmetric(
-          vertical: 10,
-          horizontal: 20,
-        ),
-      ),
-      shape: MaterialStateProperty.all(
-        RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-      ),
-    ),
-  );
   return ThemeData(
     primaryColor: primaryColor,
     primaryColorDark: primaryColorDark,
@@ -49,6 +34,5 @@ ThemeData makeAppTheme() {
     secondaryHeaderColor: primaryColor,
     textTheme: textTheme,
     inputDecorationTheme: inputDecorationTheme,
-    useMaterial3: true,
   );
 }

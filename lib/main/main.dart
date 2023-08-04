@@ -32,7 +32,7 @@ class App extends StatelessWidget {
       getPages: [
         GetPage(name: '/', page: makeLoginPage,transition: Transition.fade), 
         GetPage(name: '/login', page: makeLoginPage,transition: Transition.fade ), 
-        GetPage(name: '/surveys', page: () => const Scaffold(body: Text('Enquetes')),transition: Transition.fade)
+        GetPage(name: '/surveys', page: () => const Scaffold(body: Center(child: Text('Enquetes'))),transition: Transition.fade)
       ],
     );
   }

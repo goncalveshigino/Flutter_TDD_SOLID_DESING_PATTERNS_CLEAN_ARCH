@@ -59,7 +59,7 @@ class LoginPage extends StatelessWidget {
                 Provider(
                   create: (_) => presenter,
                   child: Padding(
-                    padding: const EdgeInsets.all(32),
+                    padding: const EdgeInsets.only(left: 32,top:32,right: 32),
                     child: Form(
                       child: Column(
                         children: [
@@ -69,14 +69,10 @@ class LoginPage extends StatelessWidget {
                             child: PasswordInput(),
                           ),
                           const SizedBox(
-                            height: 40,
+                            height: 20,
                           ),
-                          const SizedBox(
-                            height: 50,
-                            width: 120.0,
-                            child: LoginButton(),
-                          ),
-                          const SizedBox(height: 17),
+                         const LoginButton(),
+                          const SizedBox(height: 11),
                           TextButton.icon(
                             onPressed: () {},
                             icon: Icon(
