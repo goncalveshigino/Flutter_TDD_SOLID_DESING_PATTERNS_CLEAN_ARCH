@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+import '../../presentation/presentation.dart';
 import '../validation.dart';
 
 class RequiredFieldValidation extends Equatable implements FieldValidation {
@@ -12,7 +13,7 @@ class RequiredFieldValidation extends Equatable implements FieldValidation {
   const RequiredFieldValidation(this.field);
 
   @override
-  String validate(String value) {
-    return value?.isNotEmpty == true ? null : 'Campo obrigatorio';
+  ValidationError validate(String value) {
+    return value?.isNotEmpty == true ? null : ValidationError.requiredField;
   }
 }

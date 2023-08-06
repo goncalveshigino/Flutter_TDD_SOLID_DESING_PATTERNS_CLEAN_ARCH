@@ -1,3 +1,4 @@
+import 'package:flutter_tdd_clean_arch_solid_desin_patterns/presentation/presentation.dart';
 import 'package:test/test.dart';
 
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/validation/validation.dart';
@@ -19,12 +20,12 @@ void main(){
 
 
   test('Should return null if value is empty',(){
-     expect( sut.validate(''), 'Campo obrigatorio');
+     expect( sut.validate(''), ValidationError.requiredField);
   });
 
 
   test('Should return null if value is null',(){
-     expect( sut.validate(null), 'Campo obrigatorio');
+     expect( sut.validate(null), ValidationError.requiredField);
   });
 
   

@@ -1,3 +1,4 @@
+import 'package:flutter_tdd_clean_arch_solid_desin_patterns/presentation/presentation.dart';
 import 'package:test/test.dart';
 
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/validation/validation.dart';
@@ -28,7 +29,7 @@ void main(){
   });
 
   test('Should return null if email is invalid',() {
-     expect(sut.validate('gonza@gmail'), 'Campo invalido');
+     expect(sut.validate('gonza@gmail'), ValidationError.invalidField);
   });
 
 }

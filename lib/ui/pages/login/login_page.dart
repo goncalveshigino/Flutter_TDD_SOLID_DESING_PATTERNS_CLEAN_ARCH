@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tdd_clean_arch_solid_desin_patterns/ui/helpers/helpers.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/i18n/i18n.dart';
 import '../pages.dart';
 
 class LoginPage extends StatelessWidget {
@@ -34,7 +36,7 @@ class LoginPage extends StatelessWidget {
 
         presenter.mainErrorStream.listen((error) {
           if (error != null) {
-            showErrorMessage(context, error);
+            showErrorMessage(context, error.description);
           }
         });
 
@@ -80,7 +82,7 @@ class LoginPage extends StatelessWidget {
                               color: Theme.of(context).primaryColorLight,
                             ),
                             label: Text(
-                              'Criar conta',
+                              R.strings.addAccount,
                               style: TextStyle(
                                   color: Theme.of(context).primaryColorLight),
                             ),
