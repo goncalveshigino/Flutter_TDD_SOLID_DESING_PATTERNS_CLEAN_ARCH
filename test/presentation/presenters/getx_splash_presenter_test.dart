@@ -15,11 +15,11 @@ import 'package:flutter_tdd_clean_arch_solid_desin_patterns/presentation/present
 class LoadCurrentAccountSpy extends Mock implements LoadCurrentAccount {}
 
 void main() {
+
   GetxSplashPresenter sut;
   LoadCurrentAccountSpy loadCurrentAccount;
 
-  PostExpectation mockLoadCurrentAccountCall() =>
-      when(loadCurrentAccount.load());
+  PostExpectation mockLoadCurrentAccountCall() => when(loadCurrentAccount.load());
 
   void mockLoadCurrentAccount({AccountEntity account}) {
     mockLoadCurrentAccountCall().thenAnswer((_) async => account);
@@ -43,7 +43,7 @@ void main() {
   test('Should go to Surveys page on success', () async {
     sut.navigateToStream.listen(expectAsync1((page) => expect(page, '/surveys')));
 
-    await sut.checkAccount(durationsInSeconds:0);
+    await sut.checkAccount();
   });
 
   test('Should go to Login page on null result', () async {

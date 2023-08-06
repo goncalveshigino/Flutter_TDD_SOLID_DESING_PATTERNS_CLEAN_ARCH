@@ -11,7 +11,6 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     void _hadeKeyBorde() {
       final currecntFocus = FocusScope.of(context);
       if (!currecntFocus.hasPrimaryFocus) {
@@ -21,15 +20,12 @@ class LoginPage extends StatelessWidget {
 
     return Scaffold(
       body: Builder(builder: (context) {
-
         presenter.isLoadingStream.listen((isLoading) {
-
           if (isLoading) {
             showLoading(context);
           } else {
             hideLoading(context);
           }
-
         });
 
         presenter.mainErrorStream.listen((error) {
@@ -51,6 +47,7 @@ class LoginPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const HeaderLogin(),
+                const SizedBox(height: 70),
                 Text(
                   'Login'.toUpperCase(),
                   textAlign: TextAlign.center,
@@ -59,7 +56,8 @@ class LoginPage extends StatelessWidget {
                 Provider(
                   create: (_) => presenter,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 32,top:32,right: 32),
+                    padding:
+                        const EdgeInsets.only(left: 32, top: 32, right: 32),
                     child: Form(
                       child: Column(
                         children: [
@@ -71,7 +69,7 @@ class LoginPage extends StatelessWidget {
                           const SizedBox(
                             height: 20,
                           ),
-                         const LoginButton(),
+                          const LoginButton(),
                           const SizedBox(height: 11),
                           TextButton.icon(
                             onPressed: () {},

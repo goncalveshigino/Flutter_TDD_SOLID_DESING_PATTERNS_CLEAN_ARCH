@@ -7,6 +7,5 @@ SplashPresenter makeGetxSplashPresenter() {
   return GetxSplashPresenter(
     loadCurrentAccount: makeLocalLoadCurrentAccount()
   );
- 
 }
 
