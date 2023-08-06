@@ -3,7 +3,6 @@ import 'package:flutter_tdd_clean_arch_solid_desin_patterns/ui/helpers/helpers.d
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
-import '../../../utils/i18n/i18n.dart';
 import '../pages.dart';
 
 class LoginPage extends StatelessWidget {
