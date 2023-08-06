@@ -43,7 +43,7 @@ void main() {
   test('Should go to Surveys page on success', () async {
     sut.navigateToStream.listen(expectAsync1((page) => expect(page, '/surveys')));
 
-    await sut.checkAccount();
+    await sut.checkAccount(durationsInSeconds: 0);
   });
 
   test('Should go to Login page on null result', () async {
