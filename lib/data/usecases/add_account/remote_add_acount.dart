@@ -6,7 +6,7 @@ import '../../../domain/domain.dart';
 import '../../http/http.dart';
 
 
-class RemoteAddAcount {
+class RemoteAddAcount implements AddAccount {
 
   final HttpClient httpClient;
   final String url;
@@ -17,16 +17,19 @@ class RemoteAddAcount {
   });
   
   @override
-  Future<void> add(AddAcountParams params) async {
+  Future<AccountEntity> add(AddAcountParams params) async {
     final body = RemoteAddAcountParams.fromDomain(params).toJson();
     try {
-      await httpClient.request(url: url, method: 'post', body: body );
+     final httpResponse = await httpClient.request(url: url, method: 'post', body: body );
+     return RemoteAccountModel.fromJson(httpResponse).toEntity();
     } on HttpError catch(error) {
       throw error == HttpError.forbidden
           ? DomainError.emailInUse
           : DomainError.unexpected;
     }
   }
+  
+
 
 
 }
