@@ -1,7 +1,8 @@
+import 'package:flutter_tdd_clean_arch_solid_desin_patterns/data/data.dart';
 import 'package:meta/meta.dart';
 
 
-import '../../../domain/usecases/usecases.dart';
+import '../../../domain/domain.dart';
 import '../../http/http.dart';
 
 
@@ -18,7 +19,11 @@ class RemoteAddAcount {
   @override
   Future<void> add(AddAcountParams params) async {
     final body = RemoteAddAcountParams.fromDomain(params).toJson();
-     await httpClient.request(url: url, method: 'post', body: body );
+    try {
+      await httpClient.request(url: url, method: 'post', body: body );
+    } on HttpError {
+      throw DomainError.unexpected;
+    }
   }
 
 
