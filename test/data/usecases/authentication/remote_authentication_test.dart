@@ -11,6 +11,7 @@ import 'package:flutter_tdd_clean_arch_solid_desin_patterns/data/http/http.dart'
 class HttpClientSpy extends Mock implements HttpClient {}
 
 void main() {
+  
   RemoteAuthentication sut;
   HttpClientSpy httpClient;
   String url;
