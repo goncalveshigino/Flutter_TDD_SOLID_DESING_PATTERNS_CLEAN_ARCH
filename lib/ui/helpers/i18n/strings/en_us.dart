@@ -7,6 +7,9 @@ class EnUs implements Translations {
 
   @override
   String get addAccount => 'Add account';
+  
+  @override
+  String get name => 'Name';
 
   @override
   String get email => 'Email';
@@ -19,6 +22,9 @@ class EnUs implements Translations {
 
   @override
   String get password => 'Password';
+
+  @override
+  String get confirmpassword => 'Confirm Password';
   
   @override
   String get msgInvalidField => 'Invalid Field';
@@ -28,4 +34,6 @@ class EnUs implements Translations {
   
   @override
   String get mgsUnexpected => 'Something went wrong. Please try again soon.';
+  
+
 }

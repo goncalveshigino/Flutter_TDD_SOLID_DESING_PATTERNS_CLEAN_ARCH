@@ -9,6 +9,9 @@ class PtBr implements Translations {
   String get addAccount => 'Criar conta';
 
   @override
+  String get name => 'Nome';
+
+  @override
   String get email => 'Email';
 
   @override
@@ -19,6 +22,9 @@ class PtBr implements Translations {
 
   @override
   String get password => 'Senha';
+
+  @override
+  String get confirmpassword => 'Confirmar senha';
   
   @override
   String get msgInvalidField => 'Campo invalido.';
@@ -28,4 +34,5 @@ class PtBr implements Translations {
   
   @override
   String get mgsUnexpected => 'Algo errado aconteceu.Tente novamente em breve';
+  
 }

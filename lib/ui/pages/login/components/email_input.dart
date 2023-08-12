@@ -5,6 +5,7 @@ import '../../../helpers/helpers.dart';
 import '../../pages.dart';
 
 class EmailInput extends StatelessWidget {
+  
   const EmailInput({Key key}) : super(key: key);
 
   @override
