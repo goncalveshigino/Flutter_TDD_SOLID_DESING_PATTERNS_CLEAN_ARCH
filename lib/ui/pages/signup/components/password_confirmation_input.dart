@@ -5,6 +5,7 @@ import '../../../helpers/helpers.dart';
 import '../signup.dart';
 
 class ConfirmPasswordInput extends StatelessWidget {
+
   const ConfirmPasswordInput({Key key}) : super(key: key);
 
   @override
@@ -18,6 +19,7 @@ class ConfirmPasswordInput extends StatelessWidget {
           decoration: InputDecoration(
             labelText: R.strings.confirmpassword,
             icon: Icon(Icons.lock, color: Theme.of(context).primaryColorLight),
+            errorText: snapshot.hasData ? snapshot.data.description: null,
           ),
           obscureText: true,
           onChanged: presenter.validatePasswordConfirmation,

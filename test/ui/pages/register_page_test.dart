@@ -20,14 +20,10 @@ void main() {
   StreamController<UIError> confirmPasswordErrorController;
 
   void mockStreams() {
-    when(presenter.nameErrorStream)
-        .thenAnswer((_) => nameErrorController.stream);
-    when(presenter.emailErrorStream)
-        .thenAnswer((_) => emailErrorController.stream);
-    when(presenter.passwordErrorStream)
-        .thenAnswer((_) => passwordErrorController.stream);
-    when(presenter.mainErrorStream)
-        .thenAnswer((_) => confirmPasswordErrorController.stream);
+    when(presenter.nameErrorStream).thenAnswer((_) => nameErrorController.stream);
+    when(presenter.emailErrorStream).thenAnswer((_) => emailErrorController.stream);
+    when(presenter.passwordErrorStream).thenAnswer((_) => passwordErrorController.stream);
+    when(presenter.confirmPasswordErrorStream).thenAnswer((_) => confirmPasswordErrorController.stream);
   }
 
   void initStreams() {
@@ -190,30 +186,30 @@ void main() {
 
 
 
-  //   testWidgets('Should present password error', (WidgetTester tester) async {
-  //   await loadPage(tester);
+    testWidgets('Should present confirmPassword error', (WidgetTester tester) async {
+    await loadPage(tester);
 
-  //   passwordErrorController.add(UIError.invalidField);
-  //   await tester.pump();
+    confirmPasswordErrorController.add(UIError.invalidField);
+    await tester.pump();
 
-  //   expect(find.text('Campo invalido.'), findsOneWidget);
-
-
-  //   passwordErrorController.add(UIError.requiredField);
-  //   await tester.pump();
-
-  //   expect(find.text('Campo obrigatorio.'), findsOneWidget);
+    expect(find.text('Campo invalido.'), findsOneWidget);
 
 
-  //   passwordErrorController.add(null);
-  //   await tester.pump();
+    confirmPasswordErrorController.add(UIError.requiredField);
+    await tester.pump();
 
-  //   expect(
-  //     find.descendant(
-  //         of: find.bySemanticsLabel('Senha'), matching: find.byType(Text)),
-  //     findsOneWidget,
-  //   );
-  // });
+    expect(find.text('Campo obrigatorio.'), findsOneWidget);
+
+
+    confirmPasswordErrorController.add(null);
+    await tester.pump();
+
+    expect(
+      find.descendant(
+          of: find.bySemanticsLabel('Confirmar senha'), matching: find.byType(Text)),
+      findsOneWidget,
+    );
+  });
 
 
 
