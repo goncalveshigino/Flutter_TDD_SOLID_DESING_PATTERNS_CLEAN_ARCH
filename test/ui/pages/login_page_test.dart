@@ -12,7 +12,7 @@ import 'package:mockito/mockito.dart';
 class LoginPresenterSpy extends Mock implements LoginPresenter {}
 
 void main() {
-  
+
   LoginPresenter presenter;
   StreamController<UIError> emailErrorController;
   StreamController<UIError> passwordErrorController;
@@ -195,7 +195,9 @@ void main() {
 
     isFormValidController.add(true);
     await tester.pump();
-    await tester.tap(find.byType(ElevatedButton));
+    final button = find.byType(ElevatedButton);
+    await tester.ensureVisible(button);
+    await tester.tap(button);
     await tester.pump();
 
     verify(presenter.auth()).called(1);
