@@ -18,6 +18,7 @@ void main() {
   StreamController<UIError> passwordErrorController;
   StreamController<UIError> confirmPasswordErrorController;
   StreamController<UIError> mainErrorController;
+  StreamController<String> navigateToController;
   StreamController<bool> isFormValidController;
   StreamController<bool> isLoadingController;
 
@@ -32,6 +33,8 @@ void main() {
         .thenAnswer((_) => confirmPasswordErrorController.stream);
     when(presenter.mainErrorStream)
         .thenAnswer((_) => mainErrorController.stream);
+    when(presenter.navigateToStream)
+        .thenAnswer((_) => navigateToController.stream);
     when(presenter.isFormValidStream)
         .thenAnswer((_) => isFormValidController.stream);
     when(presenter.isLoadingStream)
@@ -45,9 +48,9 @@ void main() {
     passwordErrorController = StreamController<UIError>();
     confirmPasswordErrorController = StreamController<UIError>();
     mainErrorController = StreamController<UIError>();
+    navigateToController = StreamController<String>();
     isFormValidController = StreamController<bool>();
     isLoadingController = StreamController<bool>();
-   
   }
 
   void closeStreams() {
@@ -58,7 +61,7 @@ void main() {
     mainErrorController.close();
     isFormValidController.close();
     isLoadingController.close();
-   
+    navigateToController.close();
   }
 
   Future<void> loadPage(WidgetTester tester) async {
@@ -276,7 +279,8 @@ void main() {
     expect(find.byType(CircularProgressIndicator), findsNothing);
   });
 
-  testWidgets('Should present error message if signUp fails',(WidgetTester tester) async {
+  testWidgets('Should present error message if signUp fails',
+      (WidgetTester tester) async {
     await loadPage(tester);
 
     mainErrorController.add(UIError.emailInUse);
@@ -296,5 +300,25 @@ void main() {
         findsOneWidget);
   });
 
-  
+  testWidgets('Should change page', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    navigateToController.add('/any_route');
+    await tester.pumpAndSettle();
+
+    expect(Get.currentRoute, '/any_route');
+    expect(find.text('fake page'), findsOneWidget);
+  });
+
+  testWidgets('Should not change page', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    navigateToController.add('');
+    await tester.pump();
+    expect(Get.currentRoute, '/signup');
+
+    navigateToController.add(null);
+    await tester.pump();
+    expect(Get.currentRoute, '/signup');
+  });
 }

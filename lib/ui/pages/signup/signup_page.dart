@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/ui/helpers/helpers.dart';
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/ui/pages/signup/signup.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../pages.dart';
@@ -38,6 +39,13 @@ class SignUpPage extends StatelessWidget {
           if ( error != null ) {
             showErrorMessage(context, error.description);
           }
+        });
+
+        presenter.navigateToStream.listen((page){
+          if ( page?.isNotEmpty == true ) {
+            Get.offAllNamed(page);
+          }
+
         });
 
         return GestureDetector(
