@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
+
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/ui/helpers/helpers.dart';
+import 'package:flutter_tdd_clean_arch_solid_desin_patterns/ui/pages/signup/signup.dart';
+import 'package:provider/provider.dart';
 
 import '../pages.dart';
-import 'components/components.dart';
 
 class SignUpPage extends StatelessWidget {
-  const SignUpPage({Key key}) : super(key: key);
+  
+  final SignUpPresenter presenter;
+
+   const SignUpPage(this.presenter, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     void _hadeKeyBorde() {
       final currecntFocus = FocusScope.of(context);
       if (!currecntFocus.hasPrimaryFocus) {
@@ -31,38 +37,40 @@ class SignUpPage extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineMedium,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 32, top: 32, right: 32),
-                  child: Form(
-                    child: Column(
-                      children: [
-                        const NameInput(),
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 8),
-                          child: EmailINput()
-                        ),
-                        const PasswordINput(),
-                        const Padding(
-                          padding: EdgeInsets.only(top: 8, bottom: 32),
-                          child: ConfirmPasswordInput(),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const SignUpButton(),
-                        const SizedBox(height: 11),
-                        TextButton.icon(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.exit_to_app,
-                            color: Theme.of(context).primaryColorLight,
+                  padding: const EdgeInsets.all(32),
+                  child: Provider(
+                    create: (_) => presenter,
+                    child: Form(
+                      child: Column(
+                        children: [
+                          const NameInput(),
+                          const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 8),
+                              child: EmailINput()),
+                          const PasswordINput(),
+                          const Padding(
+                            padding: EdgeInsets.only(top: 8, bottom: 32),
+                            child: ConfirmPasswordInput(),
                           ),
-                          label: Text(
-                            R.strings.login,
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColorLight),
+                          const SizedBox(
+                            height: 20,
                           ),
-                        ),
-                      ],
+                          const SignUpButton(),
+                          const SizedBox(height: 11),
+                          TextButton.icon(
+                            onPressed: () {},
+                            icon: Icon(
+                              Icons.exit_to_app,
+                              color: Theme.of(context).primaryColorLight,
+                            ),
+                            label: Text(
+                              R.strings.login,
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColorLight),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 )

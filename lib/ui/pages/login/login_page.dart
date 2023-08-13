@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import '../pages.dart';
 
 class LoginPage extends StatelessWidget {
+  
   final LoginPresenter presenter;
 
   const LoginPage(this.presenter, {Key key}) : super(key: key);

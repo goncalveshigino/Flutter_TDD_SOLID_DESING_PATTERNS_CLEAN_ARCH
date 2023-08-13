@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+
+import 'package:provider/provider.dart';
 import '../../../helpers/helpers.dart';
+
+import '../signup.dart';
 
 
 class NameInput extends StatelessWidget {
@@ -7,12 +11,19 @@ class NameInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: InputDecoration(
-        labelText: R.strings.name,
-        icon: Icon(Icons.person, color: Theme.of(context).primaryColorLight),
-      ),
-      keyboardType: TextInputType.name,
+    final presenter = Provider.of<SignUpPresenter>(context);
+    return StreamBuilder<UIError>(
+      stream: presenter.nameErrorStream,
+      builder: (context, snapshot) {
+        return TextFormField(
+          decoration: InputDecoration(
+            labelText: R.strings.name,
+            icon: Icon(Icons.person, color: Theme.of(context).primaryColorLight),
+          ),
+          keyboardType: TextInputType.name,
+          onChanged: presenter.validateName,
+        );
+      }
     );
   }
 }

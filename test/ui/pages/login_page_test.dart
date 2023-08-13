@@ -12,6 +12,7 @@ import 'package:mockito/mockito.dart';
 class LoginPresenterSpy extends Mock implements LoginPresenter {}
 
 void main() {
+  
   LoginPresenter presenter;
   StreamController<UIError> emailErrorController;
   StreamController<UIError> passwordErrorController;
