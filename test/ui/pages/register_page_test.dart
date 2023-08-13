@@ -18,12 +18,15 @@ void main() {
   StreamController<UIError> emailErrorController;
   StreamController<UIError> passwordErrorController;
   StreamController<UIError> confirmPasswordErrorController;
+  StreamController<bool> isFormValidController;
+
 
   void mockStreams() {
     when(presenter.nameErrorStream).thenAnswer((_) => nameErrorController.stream);
     when(presenter.emailErrorStream).thenAnswer((_) => emailErrorController.stream);
     when(presenter.passwordErrorStream).thenAnswer((_) => passwordErrorController.stream);
     when(presenter.confirmPasswordErrorStream).thenAnswer((_) => confirmPasswordErrorController.stream);
+    when(presenter.isFormValidStream).thenAnswer((_) => isFormValidController.stream);
   }
 
   void initStreams() {
@@ -32,6 +35,7 @@ void main() {
     emailErrorController = StreamController<UIError>();
     passwordErrorController = StreamController<UIError>();
     confirmPasswordErrorController = StreamController<UIError>();
+    isFormValidController = StreamController<bool>();
   }
 
   void closeStreams() {
@@ -39,6 +43,7 @@ void main() {
     emailErrorController.close();
     passwordErrorController.close();
     confirmPasswordErrorController.close();
+    isFormValidController.close();
   }
 
   Future<void> loadPage(WidgetTester tester) async {
@@ -185,7 +190,6 @@ void main() {
   });
 
 
-
     testWidgets('Should present confirmPassword error', (WidgetTester tester) async {
     await loadPage(tester);
 
@@ -212,7 +216,26 @@ void main() {
   });
 
 
+ testWidgets('Should enable button if form is valid',(WidgetTester tester) async {
+    await loadPage(tester);
 
+    isFormValidController.add(true);
+    await tester.pump();
+
+    final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
+    expect(button.onPressed, isNotNull);
+  });
+
+  testWidgets('Should disable button if form is invalid',
+      (WidgetTester tester) async {
+    await loadPage(tester);
+
+    isFormValidController.add(false);
+    await tester.pump();
+
+    final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
+    expect(button.onPressed, null);
+  });
 
   // testWidgets('Should close streams on dispose', (WidgetTester tester) async {
   //   await loadPage(tester);
