@@ -11,11 +11,13 @@ import 'package:flutter_tdd_clean_arch_solid_desin_patterns/ui/pages/signup/sign
 class SignUpPresenterSpy extends Mock implements SignUpPresenter {}
 
 void main() {
+
   SignUpPresenter presenter;
   StreamController<UIError> nameErrorController;
   StreamController<UIError> emailErrorController;
   StreamController<UIError> passwordErrorController;
   StreamController<UIError> confirmPasswordErrorController;
+  StreamController<UIError> mainErrorController;
   StreamController<bool> isFormValidController;
   StreamController<bool> isLoadingController;
 
@@ -28,6 +30,8 @@ void main() {
         .thenAnswer((_) => passwordErrorController.stream);
     when(presenter.confirmPasswordErrorStream)
         .thenAnswer((_) => confirmPasswordErrorController.stream);
+    when(presenter.mainErrorStream)
+        .thenAnswer((_) => mainErrorController.stream);
     when(presenter.isFormValidStream)
         .thenAnswer((_) => isFormValidController.stream);
     when(presenter.isLoadingStream)
@@ -40,8 +44,10 @@ void main() {
     emailErrorController = StreamController<UIError>();
     passwordErrorController = StreamController<UIError>();
     confirmPasswordErrorController = StreamController<UIError>();
+    mainErrorController = StreamController<UIError>();
     isFormValidController = StreamController<bool>();
     isLoadingController = StreamController<bool>();
+   
   }
 
   void closeStreams() {
@@ -49,8 +55,10 @@ void main() {
     emailErrorController.close();
     passwordErrorController.close();
     confirmPasswordErrorController.close();
+    mainErrorController.close();
     isFormValidController.close();
     isLoadingController.close();
+   
   }
 
   Future<void> loadPage(WidgetTester tester) async {
@@ -268,11 +276,25 @@ void main() {
     expect(find.byType(CircularProgressIndicator), findsNothing);
   });
 
-  // testWidgets('Should close streams on dispose', (WidgetTester tester) async {
-  //   await loadPage(tester);
+  testWidgets('Should present error message if signUp fails',(WidgetTester tester) async {
+    await loadPage(tester);
 
-  //   addTearDown(() {
-  //     verify(presenter.dispose()).called(1);
-  //   });
-  // });
+    mainErrorController.add(UIError.emailInUse);
+    await tester.pump();
+
+    expect(find.text('O email ja esta em uso'), findsOneWidget);
+  });
+
+  testWidgets('Should present error message if signUp throws',
+      (WidgetTester tester) async {
+    await loadPage(tester);
+
+    mainErrorController.add(UIError.unexpected);
+    await tester.pump();
+
+    expect(find.text('Algo errado aconteceu.Tente novamente em breve'),
+        findsOneWidget);
+  });
+
+  
 }

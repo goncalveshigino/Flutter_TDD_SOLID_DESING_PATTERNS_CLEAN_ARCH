@@ -2,8 +2,7 @@ import 'translations.dart';
 
 class PtBr implements Translations {
 
-  @override
-  String get msgRequiredField => 'Campo obrigatorio.';
+
 
   @override
   String get addAccount => 'Criar conta';
@@ -34,5 +33,11 @@ class PtBr implements Translations {
   
   @override
   String get mgsUnexpected => 'Algo errado aconteceu.Tente novamente em breve';
+
+  @override
+  String get msgRequiredField => 'Campo obrigatorio.';
+  
+  @override
+  String get msgEmailInUse => 'O email ja esta em uso';
   
 }
