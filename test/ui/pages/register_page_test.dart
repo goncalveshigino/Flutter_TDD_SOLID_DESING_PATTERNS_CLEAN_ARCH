@@ -12,7 +12,7 @@ import 'package:flutter_tdd_clean_arch_solid_desin_patterns/ui/pages/signup/sign
 class SignUpPresenterSpy extends Mock implements SignUpPresenter {}
 
 void main() {
-  
+
   SignUpPresenter presenter;
   StreamController<UIError> nameErrorController;
   StreamController<UIError> emailErrorController;
@@ -108,6 +108,36 @@ void main() {
     await tester.enterText(find.bySemanticsLabel('Confirmar senha'), password);
     verify(presenter.validatePasswordConfirmation(password));
   });
+
+
+
+   testWidgets('Should present email error', (WidgetTester tester) async {
+    await loadPage(tester);
+
+    emailErrorController.add(UIError.invalidField);
+    await tester.pump();
+
+    expect(find.text('Campo invalido.'), findsOneWidget);
+
+
+    emailErrorController.add(UIError.requiredField);
+    await tester.pump();
+
+    expect(find.text('Campo obrigatorio.'), findsOneWidget);
+
+
+    emailErrorController.add(null);
+    await tester.pump();
+
+    expect(
+      find.descendant(
+          of: find.bySemanticsLabel('Email'), matching: find.byType(Text)),
+      findsOneWidget,
+    );
+  });
+
+
+
 
   // testWidgets('Should close streams on dispose', (WidgetTester tester) async {
   //   await loadPage(tester);
