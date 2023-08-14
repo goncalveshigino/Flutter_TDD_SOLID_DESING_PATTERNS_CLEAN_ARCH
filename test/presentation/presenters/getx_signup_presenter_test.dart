@@ -11,13 +11,15 @@ import 'package:flutter_tdd_clean_arch_solid_desin_patterns/ui/helpers/helpers.d
 // Validar Estream
 
 class ValidationSpy extends Mock implements Validation {}
-
 class AddAccountSpy extends Mock implements AddAccount {}
+class SaveCurrentAccountSpy extends Mock implements SaveCurrentAccount {}
 
 void main() {
+  
   GetxSignUpPresenter sut;
   ValidationSpy validation;
   AddAccountSpy addAccount;
+  SaveCurrentAccountSpy saveCurrentAccount;
   String name;
   String email;
   String password;
@@ -34,13 +36,18 @@ void main() {
   PostExpectation mockAddAccountCall() => when(addAccount.add(any));
 
   void mockAddAccount() {
-    mockAddAccountCall().thenAnswer((_) async  => AccountEntity(token));
+    mockAddAccountCall().thenAnswer((_) async => AccountEntity(token));
   }
 
   setUp(() {
     validation = ValidationSpy();
     addAccount = AddAccountSpy();
-    sut = GetxSignUpPresenter(validation: validation, addAccount: addAccount);
+    saveCurrentAccount = SaveCurrentAccountSpy();
+    sut = GetxSignUpPresenter(
+      validation: validation,
+      addAccount: addAccount,
+      saveCurrentAccount: saveCurrentAccount
+    );
 
     email = faker.internet.email();
     name = faker.person.name();
@@ -242,5 +249,16 @@ void main() {
       password: password,
       passwordConfirmation: passwordConfirmation,
     ))).called(1);
+  });
+
+  test('Should call SaveCurrentAccount with correct value', () async {
+    sut.validateName(name);
+    sut.validateEmail(email);
+    sut.validatePassword(password);
+    sut.validatePasswordConfirmation(passwordConfirmation);
+
+    await sut.signUp();
+
+    verify(saveCurrentAccount.save(AccountEntity(token))).called(1);
   });
 }
