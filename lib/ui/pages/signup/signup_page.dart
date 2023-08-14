@@ -82,7 +82,7 @@ class SignUpPage extends StatelessWidget {
                           const SignUpButton(),
                           const SizedBox(height: 11),
                           TextButton.icon(
-                            onPressed: () {},
+                            onPressed: presenter.goToLogin,
                             icon: Icon(
                               Icons.exit_to_app,
                               color: Theme.of(context).primaryColorLight,
