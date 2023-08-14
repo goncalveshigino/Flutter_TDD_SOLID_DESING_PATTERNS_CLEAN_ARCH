@@ -4,6 +4,7 @@ import 'package:test/test.dart';
 
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/entities/entities.dart';
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/usecases/usecases.dart';
+import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/helpers/helpers.dart';
 
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/presentation/presentation.dart';
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/ui/helpers/helpers.dart';
@@ -15,7 +16,7 @@ class AddAccountSpy extends Mock implements AddAccount {}
 class SaveCurrentAccountSpy extends Mock implements SaveCurrentAccount {}
 
 void main() {
-  
+
   GetxSignUpPresenter sut;
   ValidationSpy validation;
   AddAccountSpy addAccount;
@@ -38,6 +39,13 @@ void main() {
   void mockAddAccount() {
     mockAddAccountCall().thenAnswer((_) async => AccountEntity(token));
   }
+
+   PostExpectation mockSaveCurrentAccountCall() => when(saveCurrentAccount.save(any));
+
+   void mockSaveCurrentAccountError() {
+    mockSaveCurrentAccountCall().thenThrow(DomainError.unexpected);
+  }
+
 
   setUp(() {
     validation = ValidationSpy();
@@ -261,4 +269,20 @@ void main() {
 
     verify(saveCurrentAccount.save(AccountEntity(token))).called(1);
   });
+
+
+    test('Should emit UnexpectedError if SaveCurrentAccount fails', () async {
+    mockSaveCurrentAccountError();
+    sut.validateName(name);
+    sut.validateEmail(email);
+    sut.validatePassword(password);
+    sut.validatePasswordConfirmation(passwordConfirmation);
+
+    expectLater(sut.isLoadingStream, emitsInOrder([true, false]));
+    sut.mainErrorStream.listen(expectAsync1((error) => expect(error, UIError.unexpected)));
+
+    await sut.signUp();
+  });
+
+
 }

@@ -12,9 +12,12 @@ class GetxSignUpPresenter extends GetxController {
 
   final _emailError = Rx<UIError>();
   final _nameError = Rx<UIError>();
+  final _mainError = Rx<UIError>();
   final _passwordError = Rx<UIError>();
   final _passwordConfirmationError = Rx<UIError>();
+  final _navigateTo = RxString();
   final _isFormValid = false.obs;
+  final _isLoading = false.obs;
 
   String _name;
   String _email;
@@ -23,9 +26,13 @@ class GetxSignUpPresenter extends GetxController {
 
   Stream<UIError> get nameErrorStream => _nameError.stream.distinct();
   Stream<UIError> get emailErrorStream => _emailError.stream.distinct();
+  Stream<UIError> get mainErrorStream => _mainError.stream.distinct();
   Stream<UIError> get passwordErrorStream => _passwordError.stream.distinct();
-  Stream<UIError> get passwordConfirmationErrorStream => _passwordConfirmationError.stream.distinct();
+  Stream<UIError> get passwordConfirmationErrorStream =>
+      _passwordConfirmationError.stream.distinct();
+  Stream<String> get navigateStream => _navigateTo.stream.distinct();
   Stream<bool> get isFormValidStream => _isFormValid.stream.distinct();
+  Stream<bool> get isLoadingStream => _isLoading.stream.distinct();
 
   GetxSignUpPresenter({
     @required this.addAccount,
@@ -82,14 +89,24 @@ class GetxSignUpPresenter extends GetxController {
         _passwordConfirmation != null;
   }
 
-  @override
+  
   Future<void> signUp() async {
-   final account = await addAccount.add(AddAcountParams(
-      name: _name,
-      email: _email,
-      password: _password,
-      passwordConfirmation: _passwordConfirmation,
-    ));
-    await saveCurrentAccount.save(account);
+    try {
+      _isLoading.value = true;
+
+      final account = await addAccount.add(AddAcountParams(
+        name: _name,
+        email: _email,
+        password: _password,
+        passwordConfirmation: _passwordConfirmation,
+      ));
+
+      await saveCurrentAccount.save(account);
+    } on DomainError catch (error) {
+      switch (error) {
+        default: _mainError.value = UIError.unexpected;
+      }
+      _isLoading.value = false;
+    }
   }
 }
