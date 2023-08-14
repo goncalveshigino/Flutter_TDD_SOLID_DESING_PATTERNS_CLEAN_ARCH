@@ -1,11 +1,13 @@
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
 
+import '../../domain/domain.dart';
 import '../../ui/helpers/helpers.dart';
 import '../presentation.dart';
 
 class GetxSignUpPresenter extends GetxController {
   final Validation validation;
+  final AddAccount addAccount;
 
   final _emailError = Rx<UIError>();
   final _nameError = Rx<UIError>();
@@ -26,6 +28,7 @@ class GetxSignUpPresenter extends GetxController {
   Stream<bool> get isFormValidStream => _isFormValid.stream.distinct();
 
   GetxSignUpPresenter({
+    @required this.addAccount,
     @required this.validation,
   });
 
@@ -68,16 +71,23 @@ class GetxSignUpPresenter extends GetxController {
   }
 
   void _validateForm() {
-    _isFormValid.value = _emailError.value == null 
-    && _nameError.value == null
-    && _passwordError.value == null
-    && _passwordConfirmationError.value == null
-    && _email != null
-    && _name != null
-    && _password != null
-    && _passwordConfirmation != null;
+    _isFormValid.value = _emailError.value == null &&
+        _nameError.value == null &&
+        _passwordError.value == null &&
+        _passwordConfirmationError.value == null &&
+        _email != null &&
+        _name != null &&
+        _password != null &&
+        _passwordConfirmation != null;
   }
 
   @override
-  Future<void> signUp() async {}
+  Future<void> signUp() async {
+    await addAccount.add(AddAcountParams(
+      name: _name,
+      email: _email,
+      password: _password,
+      passwordConfirmation: _passwordConfirmation,
+    ));
+  }
 }
