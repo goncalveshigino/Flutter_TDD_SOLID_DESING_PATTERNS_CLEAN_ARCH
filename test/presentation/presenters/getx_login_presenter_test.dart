@@ -158,7 +158,7 @@ void main() {
     sut.validatePassword(password);
   });
 
-  test('Should disable form button if all field are valid', () async {
+  test('Should enable form button if all field are valid', () async {
     sut.emailErrorStream.listen(expectAsync1((error) => expect(error, null)));
     sut.passwordErrorStream
         .listen(expectAsync1((error) => expect(error, null)));
