@@ -76,7 +76,7 @@ class LoginPage extends StatelessWidget {
                          const LoginButton(),
                           const SizedBox(height: 11),
                           TextButton.icon(
-                            onPressed: () {},
+                            onPressed: presenter.goToSignUp,
                             icon: Icon(
                               Icons.person,
                               color: Theme.of(context).primaryColorLight,
