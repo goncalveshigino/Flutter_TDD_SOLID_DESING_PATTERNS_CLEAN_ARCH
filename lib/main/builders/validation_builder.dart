@@ -21,8 +21,13 @@ class ValidationBuilder {
     return this;
   }
 
-   ValidationBuilder email() {
+  ValidationBuilder email() {
     validations.add(EmailValidation(fieldName));
+    return this;
+  }
+
+  ValidationBuilder min(int size) {
+    validations.add(MinLengthValidation(field: fieldName, size: size));
     return this;
   }
 
