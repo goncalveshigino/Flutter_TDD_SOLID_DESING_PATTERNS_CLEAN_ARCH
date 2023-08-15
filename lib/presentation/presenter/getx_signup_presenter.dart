@@ -6,8 +6,7 @@ import '../../domain/domain.dart';
 import '../../ui/helpers/helpers.dart';
 import '../presentation.dart';
 
-class GetxSignUpPresenter extends GetxController implements SignUpPresenter{
-
+class GetxSignUpPresenter extends GetxController implements SignUpPresenter {
   final Validation validation;
   final AddAccount addAccount;
   final SaveCurrentAccount saveCurrentAccount;
@@ -30,17 +29,18 @@ class GetxSignUpPresenter extends GetxController implements SignUpPresenter{
   Stream<UIError> get nameErrorStream => _nameError.stream.distinct();
   @override
   Stream<UIError> get emailErrorStream => _emailError.stream.distinct();
-   @override
+  @override
   Stream<UIError> get mainErrorStream => _mainError.stream.distinct();
-   @override
+  @override
   Stream<UIError> get passwordErrorStream => _passwordError.stream.distinct();
   @override
-  Stream<UIError> get confirmPasswordErrorStream =>_passwordConfirmationError.stream.distinct();
+  Stream<UIError> get confirmPasswordErrorStream =>
+      _passwordConfirmationError.stream.distinct();
   @override
   Stream<String> get navigateToStream => _navigateTo.stream.distinct();
-   @override
+  @override
   Stream<bool> get isFormValidStream => _isFormValid.stream.distinct();
-   @override
+  @override
   Stream<bool> get isLoadingStream => _isLoading.stream.distinct();
 
   GetxSignUpPresenter({
@@ -52,34 +52,39 @@ class GetxSignUpPresenter extends GetxController implements SignUpPresenter{
   @override
   void validateEmail(String email) {
     _email = email;
-    _emailError.value = _validateField(field: 'email', value: email);
+    _emailError.value = _validateField('email');
     _validateForm();
   }
-  
+
   @override
   void validateName(String name) {
     _name = name;
-    _nameError.value = _validateField(field: 'name', value: name);
+    _nameError.value = _validateField('name');
     _validateForm();
   }
-  
+
   @override
   void validatePassword(String password) {
     _password = password;
-    _passwordError.value = _validateField(field: 'password', value: password);
+    _passwordError.value = _validateField('password');
     _validateForm();
   }
 
   @override
   void validatePasswordConfirmation(String passwordConfirmation) {
     _passwordConfirmation = passwordConfirmation;
-    _passwordConfirmationError.value = _validateField(
-        field: 'passwordConfirmation', value: passwordConfirmation);
+    _passwordConfirmationError.value = _validateField('passwordConfirmation');
     _validateForm();
   }
 
-  UIError _validateField({String field, String value}) {
-    final error = validation.validate(field: field, value: value);
+  UIError _validateField(String field) {
+    final formData = {
+      'name': _name,
+      'email': _email,
+      'password': _password,
+      'passwordConfirmation': _passwordConfirmation,
+    };
+    final error = validation.validate(field: field, input: formData);
 
     switch (error) {
       case ValidationError.invalidField:
@@ -115,7 +120,7 @@ class GetxSignUpPresenter extends GetxController implements SignUpPresenter{
       ));
 
       await saveCurrentAccount.save(account);
-      _navigateTo.value ='/surveys';
+      _navigateTo.value = '/surveys';
     } on DomainError catch (error) {
       switch (error) {
         case DomainError.emailInUse:
@@ -129,8 +134,7 @@ class GetxSignUpPresenter extends GetxController implements SignUpPresenter{
   }
 
   @override
-  void goToLogin(){
-     _navigateTo.value ='/login';
+  void goToLogin() {
+    _navigateTo.value = '/login';
   }
-  
 }
