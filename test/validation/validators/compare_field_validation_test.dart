@@ -9,6 +9,7 @@ import 'package:flutter_tdd_clean_arch_solid_desin_patterns/validation/validatio
 
 
 void main() {
+
   CompareFieldsValidation sut;
 
   setUp(() {
@@ -16,8 +17,12 @@ void main() {
   });
 
 
-  test('Should return error if value is no equal', () {
+  test('Should return error if value are not equal', () {
     expect(sut.validate('Wrong_value'), ValidationError.invalidField);
+  });
+
+  test('Should return error if value are equal', () {
+    expect(sut.validate('any_value'), null);
   });
 
 }
