@@ -1,9 +1,14 @@
-import 'package:flutter_tdd_clean_arch_solid_desin_patterns/presentation/dependecs/validation.dart';
+
+
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/validation/validation.dart';
 
+import 'package:flutter_tdd_clean_arch_solid_desin_patterns/presentation/presentation.dart';
+
+
 class MinLengthValidation implements FieldValidation {
+
   @override
   final String field;
   final int size;
@@ -17,16 +22,19 @@ class MinLengthValidation implements FieldValidation {
 }
 
 void main() {
-  test('Should return error if value is empty', () {
-    final sut = MinLengthValidation(field: 'any_field', size: 5);
-    final error = sut.validate('');
-    expect(error, ValidationError.invalidField);
+  MinLengthValidation sut;
+
+  setUp(() {
+   sut = MinLengthValidation(field: 'any_field', size: 5);
   });
 
+
+  test('Should return error if value is empty', () {
+    expect(sut.validate(''), ValidationError.invalidField);
+  });
 
   test('Should return error if value is null', () {
-    final sut = MinLengthValidation(field: 'any_field', size: 5);
-    final error = sut.validate(null);
-    expect(error, ValidationError.invalidField);
+    expect(sut.validate(null), ValidationError.invalidField);
   });
+
 }
