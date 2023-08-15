@@ -4,6 +4,7 @@ import '../../presentation/presentation.dart';
 import '../validation.dart';
 
 class ValidationComposite implements Validation {
+  
   final List<FieldValidation> validations;
   ValidationComposite(this.validations);
 
