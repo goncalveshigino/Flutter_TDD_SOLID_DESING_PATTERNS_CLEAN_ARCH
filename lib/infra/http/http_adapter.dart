@@ -6,7 +6,6 @@ import 'package:http/http.dart';
 import '../../data/http/http.dart';
 
 class HttpAdapter implements HttpClient {
-  
   final Client client;
 
   HttpAdapter(this.client);
@@ -17,7 +16,6 @@ class HttpAdapter implements HttpClient {
     @required String method,
     Map body,
   }) async {
-    
     final headers = {
       'content-type': 'application/json',
       'accept': 'application/json'
@@ -27,32 +25,31 @@ class HttpAdapter implements HttpClient {
 
     var response = Response('', 500);
 
-   try {
-      if (method == 'post'){
-       response = await client.post(Uri.parse(url), headers: headers, body: jsonBody);
+    try {
+      if (method == 'post') {
+        response =
+            await client.post(Uri.parse(url), headers: headers, body: jsonBody);
+      } else if (method == 'get') {
+        response = await client.get(Uri.parse(url), headers: headers);
+      }
+    } catch (e) {
+      throw HttpError.serverError;
     }
-   } catch (e) {
-     throw HttpError.serverError;
-   }
-    
+
     return _handleResponse(response);
   }
 
+
   Map _handleResponse(Response response) {
-    if (response.statusCode == 200) {
-      return response.body.isEmpty ? null : jsonDecode(response.body);
-    } else if (response.statusCode == 204) {
-      return null;
-    } else if (response.statusCode == 400) {
-      throw HttpError.badRequest;
-    } else if (response.statusCode == 401) {
-      throw HttpError.unauthorized;
-    } else if (response.statusCode == 403) {
-      throw HttpError.forbidden;
-    } else if (response.statusCode == 404) {
-      throw HttpError.notFound;
-    } else {
-      throw HttpError.serverError;
+    switch (response.statusCode) {
+      case 200:  return response.body.isEmpty ? null : jsonDecode(response.body);
+      case 204: return null;
+      case 400: throw HttpError.badRequest;
+      case 401: throw HttpError.unauthorized;
+      case 403: throw HttpError.forbidden;
+      case 404: throw HttpError.notFound;
+      default: throw HttpError.serverError;
+
     }
   }
 }
