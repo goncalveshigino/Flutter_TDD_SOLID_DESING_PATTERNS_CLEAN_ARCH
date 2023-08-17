@@ -162,6 +162,7 @@ void main() {
   });
 
   group('get', () {
+    
     PostExpectation mockRequest() => when(client.get(any, headers: anyNamed('headers')));
 
     void mockResponse(int statusCode,
@@ -203,5 +204,21 @@ void main() {
 
       expect(response, null);
     });
+
+
+     test('Should return null if get returns 204', () async {
+      mockResponse(204, body: '');
+      final response = await sut.request(url: url, method: 'get');
+
+      expect(response, null);
+    });
+
+    test('Should return null if get returns 204 with data', () async {
+      mockResponse(204);
+      final response = await sut.request(url: url, method: 'get');
+
+      expect(response, null);
+    });
+
   });
 }
