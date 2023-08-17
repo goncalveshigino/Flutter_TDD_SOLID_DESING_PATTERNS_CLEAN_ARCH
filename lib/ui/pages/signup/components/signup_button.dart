@@ -27,7 +27,7 @@ class SignUpButton extends StatelessWidget {
               ),
             ),
             child: Text(
-              R.strings.enter,
+              R.strings.addAccount,
               style: const TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,

@@ -8,7 +8,6 @@ import '../../ui/pages/pages.dart';
 import '../presentation.dart';
 
 class GetxLoginPresenter extends GetxController implements LoginPresenter {
-  
   final Validation validation;
   final Authentication authentication;
   final SaveCurrentAccount saveCurrentAccount;
@@ -81,6 +80,7 @@ class GetxLoginPresenter extends GetxController implements LoginPresenter {
   @override
   Future<void> auth() async {
     try {
+      _mainError.value = null;
       _isLoading.value = true;
       final account = await authentication
           .auth(AuthenticationParams(email: _email, password: _password));
