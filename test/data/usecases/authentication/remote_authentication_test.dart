@@ -8,7 +8,7 @@ import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/usecases/usec
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/data/usecases/use_cases.dart';
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/data/http/http.dart';
 
-class HttpClientSpy extends Mock implements HttpClient {}
+class HttpClientSpy extends Mock implements HttpClient<Map> {}
 
 void main() {
   
