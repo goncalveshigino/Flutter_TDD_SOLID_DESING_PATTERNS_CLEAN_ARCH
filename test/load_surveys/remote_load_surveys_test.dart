@@ -1,6 +1,6 @@
+import 'package:meta/meta.dart';
 
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/data/models/models.dart';
-import 'package:meta/meta.dart';
 
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/data/http/http.dart';
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/domain.dart';
@@ -19,8 +19,12 @@ class RemoteLoadSurveys {
   });
 
   Future<List<SurveyEntity>> load() async {
+    try {
     final httpResponse = await httpClient.request(url: url, method: 'get');
     return httpResponse.map((json) => RemoteSurveyModel.fromJson(json).toEntity()).toList();
+    } on HttpError {
+      throw DomainError.unexpected;
+    }
   }
 }
 
@@ -85,5 +89,14 @@ void main() {
         didAnswer: list[1]['didAnswer'],
       ),
     ]);
+  });
+
+
+
+   test('Should throw unexpectedError if HttpClient returns 200 with invalid data', () async {
+      mockHttpData([{'invalid_key':'invalid_value'}]);
+      final future =  sut.load();
+
+      expect(future, throwsA(DomainError.unexpected));
   });
 }
