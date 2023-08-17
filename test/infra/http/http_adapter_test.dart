@@ -245,5 +245,29 @@ void main() {
       expect(future, throwsA(HttpError.unauthorized));
     });
 
+    test('Should return forbiddenError if get return 403', () async {
+      mockResponse(403);
+
+      final future = sut.request(url: url, method: 'get');
+
+      expect(future, throwsA(HttpError.forbidden));
+    });
+
+    // test('Should return NotFoundError if post return 404', () async {
+    //   mockResponse(404);
+
+    //   final future = sut.request(url: url, method: 'post');
+
+    //   expect(future, throwsA(HttpError.notFound));
+    // });
+
+    // test('Should return serverError if post return 500', () async {
+    //   mockResponse(500);
+
+    //   final future = sut.request(url: url, method: 'post');
+
+    //   expect(future, throwsA(HttpError.serverError));
+    // });
+
   });
 }
