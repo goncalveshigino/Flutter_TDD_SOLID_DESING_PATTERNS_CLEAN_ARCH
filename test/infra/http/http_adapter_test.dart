@@ -253,13 +253,13 @@ void main() {
       expect(future, throwsA(HttpError.forbidden));
     });
 
-    // test('Should return NotFoundError if post return 404', () async {
-    //   mockResponse(404);
+    test('Should return NotFoundError if get return 404', () async {
+      mockResponse(404);
 
-    //   final future = sut.request(url: url, method: 'post');
+      final future = sut.request(url: url, method: 'get');
 
-    //   expect(future, throwsA(HttpError.notFound));
-    // });
+      expect(future, throwsA(HttpError.notFound));
+    });
 
     // test('Should return serverError if post return 500', () async {
     //   mockResponse(500);
