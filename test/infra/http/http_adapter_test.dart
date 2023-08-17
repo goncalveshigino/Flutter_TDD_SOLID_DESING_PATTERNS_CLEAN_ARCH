@@ -261,13 +261,13 @@ void main() {
       expect(future, throwsA(HttpError.notFound));
     });
 
-    // test('Should return serverError if post return 500', () async {
-    //   mockResponse(500);
+    test('Should return serverError if get return 500', () async {
+      mockResponse(500);
 
-    //   final future = sut.request(url: url, method: 'post');
+      final future = sut.request(url: url, method: 'get');
 
-    //   expect(future, throwsA(HttpError.serverError));
-    // });
+      expect(future, throwsA(HttpError.serverError));
+    });
 
   });
 }
