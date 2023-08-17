@@ -1,6 +1,6 @@
-import '../../../../data/usecases/use_cases.dart';
-import '../../../../domain/usecases/usecases.dart';
-import '../../factories.dart';
+import '../../../data/usecases/use_cases.dart';
+import '../../../domain/usecases/usecases.dart';
+import '../factories.dart';
 
 
 

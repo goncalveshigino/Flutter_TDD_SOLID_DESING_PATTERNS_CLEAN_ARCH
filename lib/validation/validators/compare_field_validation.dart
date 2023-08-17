@@ -1,22 +1,23 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 import '../../presentation/presentation.dart';
 import '../validation.dart';
 
-class CompareFieldsValidation implements FieldValidation {
+class CompareFieldsValidation extends Equatable implements FieldValidation {
   @override
   final String field;
   final String fieldToCompare;
 
-  CompareFieldsValidation(
-      {@required this.field, @required this.fieldToCompare});
+  @override
+  List get props => [field, fieldToCompare];
+
+  const CompareFieldsValidation({@required this.field, @required this.fieldToCompare});
 
   @override
-  ValidationError validate(Map input) =>
-        input[field] != null &&
-        input[fieldToCompare] != null &&
-        input[field] != input[fieldToCompare]
-    ? ValidationError.invalidField
-    : null;
-  
+  ValidationError validate(Map input) => input[field] != null &&
+          input[fieldToCompare] != null &&
+          input[field] != input[fieldToCompare]
+      ? ValidationError.invalidField
+      : null;
 }
