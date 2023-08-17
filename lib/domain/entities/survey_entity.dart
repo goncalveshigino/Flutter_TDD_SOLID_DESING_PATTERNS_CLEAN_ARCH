@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
-class ServeyEntity {
+class SurveyEntity {
 
   final String id;
   final String question;
@@ -9,7 +9,7 @@ class ServeyEntity {
   final bool didAnswer;
   
 
-  const ServeyEntity({
+  const SurveyEntity({
     @required this.id, 
     @required this.question,
     @required this.dateTime, 
