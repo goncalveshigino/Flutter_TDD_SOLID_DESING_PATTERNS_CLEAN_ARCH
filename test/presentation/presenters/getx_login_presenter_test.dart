@@ -18,6 +18,7 @@ class AuthenticationSpy extends Mock implements Authentication {}
 class SaveCurrentAccountSpy extends Mock implements SaveCurrentAccount {}
 
 void main() {
+  
   GetxLoginPresenter sut;
   AuthenticationSpy authentication;
   SaveCurrentAccountSpy saveCurrentAccount;
@@ -177,6 +178,7 @@ void main() {
     sut.validatePassword(password);
 
     expectLater(sut.isLoadingStream, emits(true));
+     expectLater(sut.mainErrorStream, emits(null));
 
     await sut.auth();
   });
