@@ -15,24 +15,21 @@ void main() {
   String url;
   AddAcountParams params;
 
-   Map mockValidData() =>
-      {'accessToken': faker.guid.guid(), 'name': faker.person.name()};
+   Map mockValidData() => {'accessToken': faker.guid.guid(), 'name': faker.person.name()};
 
-    PostExpectation mockRequest() => when(
-        httpClient.request(
-          url: anyNamed('url'),
-          method: anyNamed('method'),
-          body: anyNamed('body'),
-        ),
-      );
+  PostExpectation mockRequest() => when(
+      httpClient.request(
+        url: anyNamed('url'),
+        method: anyNamed('method'),
+        body: anyNamed('body'),
+      ),
+    );
 
      
 
   void mockHttpData(Map data) {
     mockRequest().thenAnswer((_) async => data);
   }
-
-
 
   void mockHttpError(HttpError error) {
     mockRequest().thenThrow(error);
