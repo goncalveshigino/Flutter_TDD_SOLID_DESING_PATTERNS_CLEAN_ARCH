@@ -16,6 +16,7 @@ class HttpAdapter implements HttpClient {
     @required String method,
     Map body,
   }) async {
+    
     final headers = {
       'content-type': 'application/json',
       'accept': 'application/json'
