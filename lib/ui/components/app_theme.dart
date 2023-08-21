@@ -3,18 +3,19 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 
 ThemeData makeAppTheme() {
-  final  primaryColor = Color.fromRGBO(136, 14, 79, 1);
-  final  primaryColorDark = Color.fromRGBO(96, 0, 39, 1);
-  final primaryColorLight = Color.fromRGBO(188, 71, 123, 1);
+  const primaryColor = Color.fromRGBO(136, 14, 79, 1);
+  const primaryColorDark = Color.fromRGBO(96, 0, 39, 1);
+  const primaryColorLight = Color.fromRGBO(188, 71, 123, 1);
+  const secondaryColorDark = Color.fromRGBO(0, 37, 26, 1);
 
-  final textTheme = TextTheme(
+  const textTheme = TextTheme(
     headlineMedium: TextStyle(
       fontSize: 30,
       fontWeight: FontWeight.bold,
       color: primaryColorDark,
     ),
   );
-  final  inputDecorationTheme = InputDecorationTheme(
+  const inputDecorationTheme = InputDecorationTheme(
     enabledBorder: UnderlineInputBorder(
       borderSide: BorderSide(
         color: primaryColorLight,
@@ -31,7 +32,7 @@ ThemeData makeAppTheme() {
     primaryColor: primaryColor,
     primaryColorDark: primaryColorDark,
     primaryColorLight: primaryColorLight,
-    secondaryHeaderColor: primaryColor,
+    secondaryHeaderColor: secondaryColorDark,
     textTheme: textTheme,
     inputDecorationTheme: inputDecorationTheme,
   );

@@ -19,8 +19,8 @@ dependencies:
   http: 
   provider: ^4.3.2+3
   flutter_secure_storage: ^3.3.3
-
   carousel_slider: ^2.3.1
+  card_swiper: ^2.0.4
   equatable: ^1.2.5
   intl: ^0.16.1
 
