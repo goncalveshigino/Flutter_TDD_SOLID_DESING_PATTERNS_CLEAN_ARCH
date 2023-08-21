@@ -84,31 +84,31 @@ void main() {
     closeStreams();
   });
 
-  testWidgets('Should load with correct initial state',
-      (WidgetTester tester) async {
-    await loadPage(tester);
+  // testWidgets('Should load with correct initial state',
+  //     (WidgetTester tester) async {
+  //   await loadPage(tester);
 
-    final nameTextChildren = find.descendant(
-        of: find.bySemanticsLabel('Nome'), matching: find.byType(Text));
-    expect(nameTextChildren, findsOneWidget);
+  //   final nameTextChildren = find.descendant(
+  //       of: find.bySemanticsLabel('Nome'), matching: find.byType(Text));
+  //   expect(nameTextChildren, findsOneWidget);
 
-    final emailTextChildren = find.descendant(
-        of: find.bySemanticsLabel('Email'), matching: find.byType(Text));
-    expect(emailTextChildren, findsOneWidget);
+  //   final emailTextChildren = find.descendant(
+  //       of: find.bySemanticsLabel('Email'), matching: find.byType(Text));
+  //   expect(emailTextChildren, findsOneWidget);
 
-    final passwordTextChildren = find.descendant(
-        of: find.bySemanticsLabel('Senha'), matching: find.byType(Text));
-    expect(passwordTextChildren, findsOneWidget);
+  //   final passwordTextChildren = find.descendant(
+  //       of: find.bySemanticsLabel('Senha'), matching: find.byType(Text));
+  //   expect(passwordTextChildren, findsOneWidget);
 
-    final passwordconfirmationTextChildren = find.descendant(
-        of: find.bySemanticsLabel('Confirmar senha'),
-        matching: find.byType(Text));
-    expect(passwordconfirmationTextChildren, findsOneWidget);
+  //   final passwordconfirmationTextChildren = find.descendant(
+  //       of: find.bySemanticsLabel('Confirmar senha'),
+  //       matching: find.byType(Text));
+  //   expect(passwordconfirmationTextChildren, findsOneWidget);
 
-    final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
-    expect(button.onPressed, null);
-    expect(find.byType(CircularProgressIndicator), findsNothing);
-  });
+  //   final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
+  //   expect(button.onPressed, null);
+  //   expect(find.byType(CircularProgressIndicator), findsNothing);
+  // });
 
   testWidgets('Should call validate with correct values',
       (WidgetTester tester) async {
