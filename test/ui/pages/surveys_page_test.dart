@@ -10,7 +10,7 @@ import 'package:mockito/mockito.dart';
 class SurveysPresenterSpy extends Mock implements SurveysPresenter {}
 
 void main() {
-  
+
   SurveysPresenterSpy presenter;
 
   StreamController<bool> isLoadingController;
@@ -67,4 +67,5 @@ void main() {
     await tester.pump();
     expect(find.byType(CircularProgressIndicator), findsNothing);
   });
+  
 }
