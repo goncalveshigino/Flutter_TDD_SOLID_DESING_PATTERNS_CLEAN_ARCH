@@ -6,13 +6,14 @@ import '../../ui.dart';
 import 'components/components.dart';
 
 class SurveysPage extends StatelessWidget {
+  
   final SurveysPresenter presenter;
 
   const SurveysPage(this.presenter, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    
+
     presenter.loadData();
 
     return Scaffold(
