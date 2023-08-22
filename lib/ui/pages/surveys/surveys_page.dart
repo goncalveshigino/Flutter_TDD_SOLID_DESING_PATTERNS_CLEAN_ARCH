@@ -4,7 +4,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 
 import '../../ui.dart';
 
-
 class SurveysPage extends StatelessWidget {
   final SurveysPresenter presenter;
 
@@ -21,7 +20,6 @@ class SurveysPage extends StatelessWidget {
       ),
       body: Builder(
         builder: (context) {
-
           presenter.isLoadingStream.listen((isLoading) {
             if (isLoading == true) {
               showLoading(context);
@@ -33,13 +31,16 @@ class SurveysPage extends StatelessWidget {
           return StreamBuilder<List<SurveyViewModel>>(
               stream: presenter.loadSurveysStream,
               builder: (context, snapshot) {
-
                 if (snapshot.hasError) {
                   return Column(
                     children: [
+
                       Text(snapshot.error),
+
                       ElevatedButton(
-                          onPressed: null, child: Text(R.strings.reload))
+                        onPressed: presenter.loadData,
+                        child: Text(R.strings.reload),
+                      )
                     ],
                   );
                 }
@@ -49,8 +50,8 @@ class SurveysPage extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 20),
                     child: CarouselSlider(
                       options: CarouselOptions(
-                      enlargeCenterPage: true, 
-                      aspectRatio: 1,
+                        enlargeCenterPage: true,
+                        aspectRatio: 1,
                       ),
                       items: snapshot.data
                           .map((viewModel) => SurveyItem(viewModel))
@@ -59,8 +60,7 @@ class SurveysPage extends StatelessWidget {
                   );
                 }
                 return const SizedBox(height: 0);
-              }
-           );
+              });
         },
       ),
     );
