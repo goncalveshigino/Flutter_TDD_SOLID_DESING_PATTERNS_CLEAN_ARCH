@@ -2,6 +2,21 @@ import 'translations.dart';
 
 class PtBr implements Translations {
 
+  @override
+  String get msgInvalidField => 'Campo invalido.';
+  
+  @override
+  String get msgInvalidCredentials => 'Credencias invalidas.';
+  
+  @override
+  String get mgsUnexpected => 'Algo errado aconteceu.Tente novamente em breve';
+
+  @override
+  String get msgRequiredField => 'Campo obrigatorio.';
+  
+  @override
+  String get msgEmailInUse => 'O email ja esta em uso';
+
 
 
   @override
@@ -26,21 +41,14 @@ class PtBr implements Translations {
   String get confirmpassword => 'Confirmar senha';
 
   @override
-  String get surveys => 'Enquetes';
-  
-  @override
-  String get msgInvalidField => 'Campo invalido.';
-  
-  @override
-  String get msgInvalidCredentials => 'Credencias invalidas.';
-  
-  @override
-  String get mgsUnexpected => 'Algo errado aconteceu.Tente novamente em breve';
+  String get reload => 'Recarregar';
 
   @override
-  String get msgRequiredField => 'Campo obrigatorio.';
-  
+  String get surveys => 'Enquetes';
+
   @override
-  String get msgEmailInUse => 'O email ja esta em uso';
+  String get wait => 'Aguarde...';
+  
+  
   
 }

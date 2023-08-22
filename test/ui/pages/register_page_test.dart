@@ -261,6 +261,7 @@ void main() {
 
  
   testWidgets('should handle loading correctly', (WidgetTester tester) async {
+
     await loadPage(tester);
 
     isLoadingController.add(true);
@@ -278,6 +279,7 @@ void main() {
     isLoadingController.add(null);
     await tester.pump();
     expect(find.byType(CircularProgressIndicator), findsNothing);
+    
   });
 
   testWidgets('Should present error message if signUp fails',

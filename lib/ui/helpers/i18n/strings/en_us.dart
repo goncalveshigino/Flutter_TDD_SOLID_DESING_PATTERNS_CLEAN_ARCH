@@ -2,6 +2,23 @@ import 'translations.dart';
 
 class EnUs implements Translations {
 
+    
+  @override
+  String get msgInvalidField => 'Invalid Field';
+
+  @override
+  String get msgRequiredField => 'Required Field';
+  
+  @override
+  String get msgInvalidCredentials => 'Invalid Credentials';
+  
+  @override
+  String get mgsUnexpected => 'Something went wrong. Please try again soon.';
+  
+  @override
+  String get msgEmailInUse => 'Email in use';
+
+
 
   @override
   String get addAccount => 'Add account';
@@ -25,22 +42,14 @@ class EnUs implements Translations {
   String get confirmpassword => 'Confirm Password';
 
   @override
-  String get surveys => 'Surveys';
-  
-  @override
-  String get msgInvalidField => 'Invalid Field';
+  String get reload => 'Reload';
 
   @override
-  String get msgRequiredField => 'Required Field';
-  
+  String get surveys => 'Surveys';
+
   @override
-  String get msgInvalidCredentials => 'Invalid Credentials';
-  
-  @override
-  String get mgsUnexpected => 'Something went wrong. Please try again soon.';
-  
-  @override
-  String get msgEmailInUse => 'Email in use';
+  String get wait => 'Wait...';
+
   
 
 }
