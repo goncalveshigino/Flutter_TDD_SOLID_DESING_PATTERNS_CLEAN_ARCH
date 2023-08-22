@@ -10,7 +10,7 @@ void main(){
   RequiredFieldValidation sut;
 
   setUp((){
-     sut = RequiredFieldValidation('any_field');
+     sut = const RequiredFieldValidation('any_field');
   });
 
 

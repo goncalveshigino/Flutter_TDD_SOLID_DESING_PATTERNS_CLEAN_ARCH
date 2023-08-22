@@ -12,7 +12,7 @@ void main(){
  EmailValidation sut;
 
  setUp((){
-    sut = EmailValidation('any_field');
+    sut = const EmailValidation('any_field');
  });
 
   test('Should return null on invalid case',() {

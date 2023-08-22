@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 import '../ui/components/app_theme.dart';
-import '../ui/helpers/helpers.dart';
 import 'factories/factories.dart';
 
 void main() {
