@@ -3,17 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 import '../../ui.dart';
-import 'components/components.dart';
+
 
 class SurveysPage extends StatelessWidget {
-
   final SurveysPresenter presenter;
 
   const SurveysPage(this.presenter, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     presenter.loadData();
 
     return Scaffold(
@@ -25,40 +23,44 @@ class SurveysPage extends StatelessWidget {
         builder: (context) {
 
           presenter.isLoadingStream.listen((isLoading) {
-             if ( isLoading == true ){
+            if (isLoading == true) {
               showLoading(context);
-             } else {
+            } else {
               hideLoading(context);
-             }
+            }
           });
 
           return StreamBuilder<List<SurveyViewModel>>(
-            stream: presenter.loadSurveysStream,
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Column(
-                  children: [
-                    Text(snapshot.error), 
-                    ElevatedButton(
-                      onPressed: null, 
-                      child: Text(R.strings.reload)
-                    )
-                  ],
-                );
+              stream: presenter.loadSurveysStream,
+              builder: (context, snapshot) {
+
+                if (snapshot.hasError) {
+                  return Column(
+                    children: [
+                      Text(snapshot.error),
+                      ElevatedButton(
+                          onPressed: null, child: Text(R.strings.reload))
+                    ],
+                  );
+                }
+
+                if (snapshot.hasData) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: CarouselSlider(
+                      options: CarouselOptions(
+                      enlargeCenterPage: true, 
+                      aspectRatio: 1,
+                      ),
+                      items: snapshot.data
+                          .map((viewModel) => SurveyItem(viewModel))
+                          .toList(),
+                    ),
+                  );
+                }
+                return const SizedBox(height: 0);
               }
-              return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: CarouselSlider(
-                  options: CarouselOptions(enlargeCenterPage: true, aspectRatio: 1),
-                  items: const [
-                    SurveyItem(),
-                    SurveyItem(),
-                    SurveyItem(),
-                  ],
-                ),
-              );
-            }
-          );
+           );
         },
       ),
     );
