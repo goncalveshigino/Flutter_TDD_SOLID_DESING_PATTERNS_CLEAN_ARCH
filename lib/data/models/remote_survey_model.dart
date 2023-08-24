@@ -5,6 +5,7 @@ import '../../domain/entities/entities.dart';
 import '../data.dart';
 
 class RemoteSurveyModel {
+  
   final String id;
   final String question;
   final String date;

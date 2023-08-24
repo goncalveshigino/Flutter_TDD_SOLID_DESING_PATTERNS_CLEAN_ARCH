@@ -12,7 +12,7 @@ import 'package:test/test.dart';
 
 
 
-class HttpClientSpy extends Mock implements HttpClient<List<Map>> {}
+class HttpClientSpy extends Mock implements HttpClient {}
 
 void main() {
   

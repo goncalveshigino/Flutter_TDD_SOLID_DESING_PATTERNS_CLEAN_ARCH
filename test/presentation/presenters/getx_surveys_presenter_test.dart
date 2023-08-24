@@ -2,39 +2,35 @@ import 'package:faker/faker.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/usecases/usecases.dart';
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/entities/entities.dart';
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/domain/helpers/helpers.dart';
 
-
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/ui/ui.dart';
 
-
 import 'package:flutter_tdd_clean_arch_solid_desin_patterns/presentation/presenter/presenter.dart';
-
-
 
 class LoadSurveysSpy extends Mock implements LoadSurveys {}
 
 void main() {
-  
   GetxSurveysPresenter sut;
   LoadSurveysSpy loadSurveys;
   List<SurveyEntity> surveys;
 
   List<SurveyEntity> mockValidData() => [
-        SurveyEntity(
-            id: faker.guid.guid(),
-            question: faker.lorem.sentence(),
-            dateTime: DateTime(2023, 8, 22),
-            didAnswer: true),
-        SurveyEntity(
-            id: faker.guid.guid(),
-            question: faker.lorem.sentence(),
-            dateTime: DateTime(2020, 7, 2),
-            didAnswer: false)
-      ];
+    SurveyEntity(
+      id: faker.guid.guid(),
+      question: faker.lorem.sentence(),
+      dateTime: DateTime(2023, 8, 22),
+      didAnswer: true,
+    ),
+    SurveyEntity(
+      id: faker.guid.guid(),
+      question: faker.lorem.sentence(),
+      dateTime: DateTime(2020, 7, 2), 
+      didAnswer: false,
+    ),
+   ];
 
   PostExpectation mockLoadSurveysCall() => when(loadSurveys.load());
 

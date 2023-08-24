@@ -57,9 +57,9 @@ void main() {
     authentication = AuthenticationSpy();
     saveCurrentAccount = SaveCurrentAccountSpy();
     sut = GetxLoginPresenter(
-        validation: validation,
-        authentication: authentication,
-        saveCurrentAccount: saveCurrentAccount);
+      validation: validation,
+      authentication: authentication,
+      saveCurrentAccount: saveCurrentAccount);
     email = faker.internet.email();
     password = faker.internet.password();
     token = faker.guid.guid();

@@ -7,9 +7,11 @@ import '../../../domain/usecases/usecases.dart';
 import '../../data.dart';
 
 class LocalLoadCurrentAccount implements LoadCurrentAccount {
+
   final FetchSecureCacheStorage fetchSecureCacheStorage;
 
   LocalLoadCurrentAccount({@required this.fetchSecureCacheStorage});
+  
   @override
   Future<AccountEntity> load() async {
     try {

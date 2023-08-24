@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import '../../domain/domain.dart';
 import '../../ui/ui.dart';
 
-class GetxSurveysPresenter {
+class GetxSurveysPresenter implements SurveysPresenter {
   
   final LoadSurveys loadSurveys;
 
