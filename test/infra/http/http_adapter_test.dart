@@ -11,6 +11,7 @@ import 'package:flutter_tdd_clean_arch_solid_desin_patterns/data/http/http.dart'
 class ClientSpay extends Mock implements Client {}
 
 void main() {
+
   HttpAdapter sut;
   ClientSpay client;
   String url;
@@ -47,14 +48,23 @@ void main() {
     });
 
     test('Should calls post with correct values', () async {
-      await sut
-          .request(url: url, method: 'post', body: {'any_key': 'any_value'});
-
+      await sut.request(url: url, method: 'post', body: {'any_key': 'any_value'});
       verify(
         client.post(Uri.parse(url),
             headers: {
               'content-type': 'application/json',
               'accept': 'application/json',
+            },
+            body: '{"any_key":"any_value"}'),
+      );
+
+      await sut.request(url: url, method: 'post', body: {'any_key': 'any_value'}, headers: {'any_header':'any_vaue'});
+      verify(
+        client.post(Uri.parse(url),
+            headers: {
+              'content-type': 'application/json',
+              'accept': 'application/json',
+              'any_header':'any_vaue'
             },
             body: '{"any_key":"any_value"}'),
       );
@@ -177,13 +187,23 @@ void main() {
     });
 
     test('Should calls get with correct values', () async {
-      await sut.request(url: url, method: 'get', body: {'any_key': 'any_value'});
+      await sut.request(url: url, method: 'get');
+      verify( client.get(
+            Uri.parse(url),
+            headers: {
+              'content-type': 'application/json',
+              'accept': 'application/json',
+            },
+          ),
+      );
 
+      await sut.request(url: url, method: 'get', headers: {'any_header': 'any_value'});
       verify(
         client.get(Uri.parse(url),
             headers: {
               'content-type': 'application/json',
               'accept': 'application/json',
+              'any_header': 'any_value'
             },
           ),
       );

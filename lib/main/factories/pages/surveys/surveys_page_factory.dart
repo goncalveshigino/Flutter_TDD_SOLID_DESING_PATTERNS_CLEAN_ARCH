@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../../ui/pages/pages.dart';
+import 'surveys.dart';
 
 
 
-Widget makeSurveysPage() => const SurveysPage(null);
+Widget makeSurveysPage() =>  SurveysPage(makeGetxSurveysPresenter());
 
 
